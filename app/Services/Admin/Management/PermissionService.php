@@ -8,6 +8,8 @@ use App\ActionData\Management\Permission\UpdatePermissionActionData;
 use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Management\Permission\PermissionData;
 use App\Models\Management\Permission;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class PermissionService
 {
@@ -46,7 +48,7 @@ class PermissionService
      * @return PermissionData
      * @throws \Exception
      */
-    public function getOne(int $id):Permission
+    public function getOne(int $id): Permission
     {
         return Permission::query()->findOrFail($id);
     }
@@ -56,7 +58,7 @@ class PermissionService
      * @return PermissionData
      * @throws \Exception
      */
-    public function edit(int $id):PermissionData
+    public function edit(int $id): PermissionData
     {
         return PermissionData::fromModel($this->getOne($id));
     }
@@ -68,7 +70,7 @@ class PermissionService
      * @throws \Illuminate\Validation\ValidationException
      * @throws \Exception
      */
-    public function update(UpdatePermissionActionData $actionData, int $id):void
+    public function update(UpdatePermissionActionData $actionData, int $id): void
     {
         $actionData->addValidationRule('name', "unique:permissions,name,$id");
         $actionData->validateException();
@@ -82,10 +84,19 @@ class PermissionService
      * @return void
      * @throws \Exception
      */
-    public function delete(int $id):void
+    public function delete(int $id): void
     {
         $permission = $this->getOne($id);
         $permission->delete();
     }
 
+    /**
+     * @return Permission[]|Builder[]|Collection
+     */
+    public function getAllPermissions()
+    {
+        return Permission::query()
+            ->get()
+            ->chunk(5);
+    }
 }

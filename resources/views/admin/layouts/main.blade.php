@@ -125,11 +125,12 @@
 <script src="{{ asset("assets/plugins/popper/popper.js") }}"></script>
 <script src="{{ asset("assets/plugins/bootstrap/js/bootstrap.min.js") }}"></script>
 <script src="{{ asset("assets/plugins/pace/pace.min.js") }}"></script>
+<script src="{{ asset("assets/plugins/sparkline/sparkline.min.js") }}"></script>
 <script src="{{ asset("assets/js/jquery.slimscroll.min.js") }}"></script>
 <script src="{{ asset("assets/js/highlight.min.js") }}"></script>
 <script src="{{ asset("assets/js/adminify.js") }}"></script>
 <script src="{{ asset("assets/plugins/toastr/toastr.min.js") }}"></script>
-{{--<script src="{{ asset("assets/js/custom.js") }}"></script>--}}
+<script src="{{ asset("assets/js/custom.js") }}"></script>
 @yield('script')
 @if(session()->has('res'))
     <script>

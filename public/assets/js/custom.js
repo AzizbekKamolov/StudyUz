@@ -246,7 +246,7 @@ var handleCardAction = function() {
 		return false;
 	}
 	cardActionRunning = true;
-	    
+
 	// collapse
 	$(document).on('mouseover', '[data-toggle=collapse]', function(e) {
 		if (!$(this).attr('data-init')) {
@@ -332,7 +332,7 @@ var handleCardAction = function() {
 		}
 		$(window).trigger('resize');
 	});
-		
+
 	// remove
 	$(document).on('mouseover', '[data-toggle=remove]', function(e) {
 		if (!$(this).attr('data-init')) {
@@ -352,7 +352,7 @@ var handleCardAction = function() {
 		$(this).closest('.card').remove();
 	});
 
-	
+
 };
 
 
@@ -391,7 +391,7 @@ var generateSlimScroll = function(element) {
 		dataHeight = (!dataHeight) ? $(element).height() : dataHeight;
 
 	var scrollBarOption = {
-		height: dataHeight, 
+		height: dataHeight,
 		alwaysVisible: false
 	};
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -456,7 +456,7 @@ jQuery(document).ready(function(){
 ***************************************************/
 var App = function () {
 	"use strict";
-	
+
 	return {
 		init: function () {
 			this.initComponent();
