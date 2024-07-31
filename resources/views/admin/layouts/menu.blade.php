@@ -1,15 +1,15 @@
 <div class="page-sidebar-inner">
     <div class="page-sidebar-menu">
         <ul class="accordion-menu">
-            <li class="@if(request()->routeIs('permissions.index', 'roles.index')) open active @endif">
+            <li class="@if(request()->routeIs('permissions.*', 'roles.*')) open active @endif">
                 <a href="javascript:void(0)"><i class="fa fa-bar-chart"></i>
                     <span>Boshqaruv</span><i class="accordion-icon fa fa-angle-left"></i></a>
                 <ul class="sub-menu" style="display: block;">
                     <li><a href="@if(request()->routeIs('users.index'))active @endif"><i class="fa fa-users"></i>Foydalanuvchilar</a>
                     </li>
-                    <li class="@if(request()->routeIs('permissions.index'))active @endif"><a
+                    <li class="@if(request()->routeIs('permissions.*'))active @endif"><a
                             href="{{ route('permissions.index') }}"><i class="fa fa-key"></i>Ruxsatlar</a></li>
-                    <li class="@if(request()->routeIs('roles.index')) active @endif"><a
+                    <li class="@if(request()->routeIs('roles.*')) active @endif"><a
                             href="{{ route('roles.index') }}"><i class="fa fa-key"></i>Rollar</a></li>
                 </ul>
             </li>
