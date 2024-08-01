@@ -8,6 +8,7 @@ use App\ActionData\Management\Role\UpdateRoleActionData;
 use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Management\Role\RoleData;
 use App\Models\Management\Role;
+use Illuminate\Database\Eloquent\Collection;
 
 class RoleService
 {
@@ -91,6 +92,14 @@ class RoleService
     {
         $role = $this->getOne($id);
         $role->delete();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAllRoles():Collection
+    {
+        return Role::all();
     }
 
 }

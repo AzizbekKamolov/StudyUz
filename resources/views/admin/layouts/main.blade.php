@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword" content="">
-    <meta name="author"  content=""/>
+    <meta name="author" content=""/>
     <!-- Page Title -->
     <title>Blank Layout | Adminify - Multipurpose Admin Dashboard Template</title>
     <!-- Main CSS -->
@@ -16,7 +16,7 @@
     <link href="{{ asset("assets/plugins/simple-line-icons/css/simple-line-icons.css") }}" rel="stylesheet">
     <link href="{{ asset("assets/plugins/ionicons/css/ionicons.css") }}" rel="stylesheet">
     <link href="{{ asset("assets/plugins/toastr/toastr.min.css") }}" rel="stylesheet">
-{{--    <link href="{{ asset("assets/css/skin-turquoise.css") }}" rel="stylesheet" id="style-colors">--}}
+    {{--    <link href="{{ asset("assets/css/skin-turquoise.css") }}" rel="stylesheet" id="style-colors">--}}
     <link href="{{ asset("assets/css/app.min.css") }}" rel="stylesheet"/>
     <link href="{{ asset("assets/css/style.css") }}" rel="stylesheet"/>
     <!-- Favicon -->
@@ -29,7 +29,7 @@
     <![endif]-->
     @yield('head')
     <style>
-        .button-2x{
+        .button-2x {
             font-size: large;
         }
     </style>
@@ -48,18 +48,22 @@
             <i class="ion-aperture" id="fixed-sidebar-toggle-button"></i>
             <i class="ion-ios-close-empty" id="sidebar-toggle-button-close"></i>
         </a>
-        @include('admin.layouts.menu')
+        @include('admin.layouts.components.menu')
         <!--================================-->
         <!-- Sidebar Footer Start -->
         <!--================================-->
         <div class="sidebar-footer">
-            <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top" data-original-title="Profile">
+            <a class="pull-left" href="page-profile.html" data-toggle="tooltip" data-placement="top"
+               data-original-title="Profile">
                 <i class="icon-user"></i></a>
-            <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top" data-original-title="Mailbox">
+            <a class="pull-left " href="mailbox.html" data-toggle="tooltip" data-placement="top"
+               data-original-title="Mailbox">
                 <i class="icon-envelope"></i></a>
-            <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top" data-original-title="Lockscreen">
+            <a class="pull-left" href="page-unlock.html" data-toggle="tooltip" data-placement="top"
+               data-original-title="Lockscreen">
                 <i class="icon-lock"></i></a>
-            <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top" data-original-title="Sing Out">
+            <a class="pull-left" href="page-singin.html" data-toggle="tooltip" data-placement="top"
+               data-original-title="Sing Out">
                 <i class="icon-power"></i></a>
         </div>
         <!--/ Sidebar Footer End -->
@@ -72,7 +76,7 @@
         <!--================================-->
         <!-- Page Header Start -->
         <!--================================-->
-        @include('admin.layouts.page_header')
+        @include('admin.layouts.components.page_header')
         <!--/ Page Header End -->
         <!--================================-->
         <!-- Page Inner Start -->
@@ -87,8 +91,8 @@
                 <!--================================-->
                 <!-- Breadcrumb Start -->
                 <!--================================-->
-{{--                @include('admin.layouts.page_breadcrumb')--}}
-                <!--/ Breadcrumb End -->
+{{--                @include('admin.layouts.components.page_breadcrumb')--}}
+{{--                <!--/ Breadcrumb End -->--}}
                 @yield('content')
             </div>
             <!--/ Main Wrapper End -->
@@ -97,11 +101,11 @@
         <!--================================-->
         <!-- Page Footer Start -->
         <!--================================-->
-{{--        <footer class="page-footer bg-gray-100">--}}
-{{--            <div class="pd-y-10 pd-x-25">--}}
-{{--                <span class="tx-italic text-muted">Copyright&copy; 2024</span>--}}
-{{--            </div>--}}
-{{--        </footer>--}}
+        {{--        <footer class="page-footer bg-gray-100">--}}
+        {{--            <div class="pd-y-10 pd-x-25">--}}
+        {{--                <span class="tx-italic text-muted">Copyright&copy; 2024</span>--}}
+        {{--            </div>--}}
+        {{--        </footer>--}}
         <!-- Page Footer End -->
     </div>
     <!-- /Page Content -->
@@ -134,14 +138,14 @@
 @yield('script')
 @if(session()->has('res'))
     <script>
-        $(document).ready(function() {
-            setTimeout(function() {
+        $(document).ready(function () {
+            setTimeout(function () {
                 toastr.options = {
                     positionClass: 'toast-top-right',
                     closeButton: true,
                     progressBar: true,
                     showMethod: 'slideDown',
-                    timeOut: 5000
+                    timeOut: 3852
                 };
                 toastr.{{ session('res.method') }}("{{ session('res.msg') }}");
 

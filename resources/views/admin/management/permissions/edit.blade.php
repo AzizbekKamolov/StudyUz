@@ -21,7 +21,9 @@
                                 @endif
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-info" type="submit">{{ __('table.save') }}</button>
+                        <div class="text-center">
+                            <button class="btn btn-sm btn-success col-md-4" type="submit">{{ __('table.save') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>

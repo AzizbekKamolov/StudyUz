@@ -14,22 +14,27 @@
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
                                 <label for="name">{{ __('table.name') }}</label>
-                                <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="name" name="name" required
+                                       value="{{ old('name') }}">
                                 @if($errors->has('name'))
                                     <div class="text-danger">{{ $errors->first('name') }}</div>
                                 @endif
                             </div>
                             <div class="col-md-12 mb-3">
-                                @foreach($permissions as $items)
+                                @forelse($permissions as $items)
                                     @foreach($items as $permission)
-                                            <input type="checkbox" class="" name="permission_id[]" id="{{ $permission->id }}" value="{{ $permission->name }}">
-                                            <label for="{{ $permission->id }}" class="mr-2 ">{{ $permission->name }}</label>
+                                        <input type="checkbox" class="" name="permission_id[]"
+                                               id="{{ $permission->id }}" value="{{ $permission->name }}">
+                                        <label for="{{ $permission->id }}" class="mr-2 ">{{ $permission->name }}</label>
                                     @endforeach
-                                        <br>
-                                @endforeach
+                                    <br>
+                                @empty
+                                @endforelse
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-info" type="submit">{{ __('table.save') }}</button>
+                        <div class="text-center">
+                            <button class="btn btn-success col-md-4" type="submit">{{ __('table.save') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>

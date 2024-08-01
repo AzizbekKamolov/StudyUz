@@ -70,8 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-//    'timezone' => 'Asia/Tashkent',
+//    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tashkent',
 
     /*
     |--------------------------------------------------------------------------
