@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Management\RoleController;
 use App\Http\Controllers\Admin\Management\UserController;
 use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
+Route::view('/login', 'auth.login');
 Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
     Route::controller(PermissionController::class)->name('permissions.')->prefix('permissions')->group(function () {

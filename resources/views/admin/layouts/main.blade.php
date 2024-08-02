@@ -30,7 +30,7 @@
     @yield('head')
     <style>
         .button-2x {
-            font-size: small;
+            font-size: medium;
         }
     </style>
 </head>

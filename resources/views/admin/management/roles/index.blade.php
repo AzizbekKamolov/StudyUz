@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-    <div class="row clearfix @if(count($pagination->items()) <= 8) ht-100v @endif">
+    <div class="row clearfix">
         <div class="col-md-12 col-lg-12">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
@@ -32,7 +32,7 @@
                                     <a href="{{ route("roles.edit", [$item->id]) }}">
                                         <i class="fa fa-edit text-purple button-2x"></i></a>
                                     <a href="">
-                                        <i class="fa fa-eye text-info button-2x"></i></a>
+{{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
                                     <a href="{{ route("roles.delete", [$item->id]) }}" class="" onclick="return confirm(this.getAttribute('data-message'));"
                                        data-message="{{ __('table.confirm_delete') }}">
                                         <i class="fa fa-trash-o text-danger button-2x"></i></a>
