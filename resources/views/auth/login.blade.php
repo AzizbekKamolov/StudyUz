@@ -12,19 +12,26 @@
                 {{--            <p class="divider-text">--}}
                 {{--                <span class="bg-light">OR</span>--}}
                 {{--            </p>--}}
-                <form>
-                    <div class="form-group input-group">
+                <form method="post" action="{{ route('auth.login') }}">
+                    @csrf
+                    <div class="form-group input-group mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text pd-x-9 text-muted"> <i class="fa fa-envelope"></i> </span>
                         </div>
-                        <input class="form-control form-control-sm" placeholder="Email address" type="email">
+                        <input class="form-control" placeholder="Email address" type="text" name="username">
                     </div>
-                    <div class="form-group input-group">
+                    @if($errors->has('username'))
+                        <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
+                    <div class="form-group input-group mb-5">
                         <div class="input-group-prepend">
                             <span class="input-group-text text-muted"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        <input class="form-control form-control-sm" placeholder="Create password" type="password">
+                        <input class="form-control" placeholder="Create password" type="password" name="password">
                     </div>
+                    @if($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
                     <p class="text-center"><a href="page-password.html">Forget Password?</a></p>
                     <div class="form-group">
                         <button type="submit" class="btn btn-info btn-block tx-13 hover-white"> Login </button>
