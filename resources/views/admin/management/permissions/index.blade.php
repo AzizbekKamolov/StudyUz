@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
-    <div class="row clearfix @if(count($pagination->items()) <= 8) ht-100v @endif">
-        <div class="col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 mb-5">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">

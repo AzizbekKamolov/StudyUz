@@ -19,7 +19,7 @@ class PermissionService
      * @param iterable|null $filters
      * @return DataObjectCollection
      */
-    public function paginate(int $page = 1, $limit = 10, ?iterable $filters = null): DataObjectCollection
+    public function paginate(int $page = 1, int $limit = 30, ?iterable $filters = null): DataObjectCollection
     {
         $model = Permission::applyEloquentFilters($filters)
             ->orderBy('permissions.id', 'desc');

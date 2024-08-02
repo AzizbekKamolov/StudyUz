@@ -30,7 +30,7 @@
     @yield('head')
     <style>
         .button-2x {
-            font-size: large;
+            font-size: small;
         }
     </style>
 </head>
@@ -72,7 +72,7 @@
     <!--================================-->
     <!-- Page Content Start -->
     <!--================================-->
-    <div class="page-content">
+    <div class="page-content ht-100v">
         <!--================================-->
         <!-- Page Header Start -->
         <!--================================-->

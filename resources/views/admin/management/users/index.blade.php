@@ -1,14 +1,38 @@
 @extends('admin.layouts.main')
 @section('content')
-    <div class="row clearfix @if(count($pagination->items()) <= 8) ht-100v @endif">
+    <div class="row clearfix">
         <div class="col-md-12 col-lg-12">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
-                    <h4 class="card-header-title">
-                        {{ __('form.user.users') }}
-                    </h4>
-                    <a href="{{ route("users.create") }}" class="btn btn-outline-success">
-                        <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                    <div class="card-header-title d-flex justify-content-between">
+                        <h4><a href="{{ route('users.index') }}">{{ __('form.user.users') }}</a></h4>
+                        <div>
+                            <form action="{{ route('users.index') }}">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="search" placeholder="{{ __('table.search') }}">
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control"  name="role_id">
+                                            <option value="" disabled selected>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
+                                        @foreach($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <a href="{{ route("users.create") }}" class="btn btn-outline-success">
+                            <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                    </div>
+{{--                    <h4 class="card-header-title">--}}
+{{--                        {{ __('form.user.users') }}--}}
+{{--                    </h4>--}}
+
                 </div>
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">

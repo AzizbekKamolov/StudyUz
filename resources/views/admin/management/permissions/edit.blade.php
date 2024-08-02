@@ -1,8 +1,8 @@
 @extends('admin.layouts.main')
 @section('content')
-    <div class="row clearfix ht-100v">
+    <div class="row clearfix">
         <div class="col-md-12 col-lg-12">
-            <div class="card mb-4 shadow-1">
+            <div class="card mb-5 mt-5 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">
                         {{ __('form.permission.edit_permission') }}
