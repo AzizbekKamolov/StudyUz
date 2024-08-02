@@ -23,6 +23,15 @@ class AuthController extends Controller
     {
         $actionData = LoginUserActionData::fromRequest($request);
         $this->service->loginUser($actionData);
-        return redirect()->route("admin.index");
+        return redirect()->route("admin.index")->with('res', [
+            'method' => "success",
+            'msg' => "Siz tizimga muvaqqiyatli kirdingiz",
+        ]);
+    }
+
+    public function logOut(Request $request): RedirectResponse
+    {
+        auth()->logout();
+        return redirect()->route("auth.login");
     }
 }

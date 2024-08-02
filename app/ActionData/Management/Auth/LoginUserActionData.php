@@ -7,8 +7,8 @@ use App\ActionData\ActionDataBase;
 
 class LoginUserActionData extends ActionDataBase
 {
-    public string $username;
-    public string $password;
+    public ?string $username;
+    public ?string $password;
 
     protected array $rules = [
         "username" => "required",

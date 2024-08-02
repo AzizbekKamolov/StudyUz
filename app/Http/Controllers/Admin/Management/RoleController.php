@@ -68,7 +68,22 @@ class RoleController extends Controller
     {
         $data = $this->service->edit($id);
         $viewModel = new RoleViewModel($data);
-        $permissions = (new PermissionService())->getAllPermissions();
+        $data = (new PermissionService())->getAllPermissions();
+        $permissions = [];
+        $last = '';
+        $i = 0;
+        foreach ($data as $permission){
+            $exploded = preg_split('/[.|_| ]/', $permission->name);
+            if ($last !== $exploded[0]) {
+                $i++;
+            }
+            $arr['name'] = $permission->name;
+            $arr['id'] = $permission->id;
+            $arr['code'] = $exploded[0];
+            $permissions[$i][] = $arr;
+            $last = $exploded[0];
+//            dd($permission, $exploded);
+        }
         return $viewModel->toView('admin.management.roles.edit', compact('permissions'));
     }
 

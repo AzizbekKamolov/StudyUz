@@ -236,7 +236,7 @@
                             <a href="page-unlock.html"><i class="icon-lock"></i><span>Lockscreen</span></a>
                         </li>
                         <li>
-                            <a href="page-singin.html"><i class="icon-logout"></i><span>Sing Out</span></a>
+                            <a href="{{ route('auth.logOut') }}"><i class="icon-logout"></i><span>Sing Out</span></a>
                         </li>
                     </ul>
                 </li>

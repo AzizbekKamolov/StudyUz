@@ -96,7 +96,7 @@ class PermissionService
     public function getAllPermissions()
     {
         return Permission::query()
-            ->get()
-            ->chunk(5);
+            ->get();
+//            ->chunk(5);
     }
 }
