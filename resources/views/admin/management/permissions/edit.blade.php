@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
-    <div class="row clearfix">
-        <div class="col-md-12 col-lg-12">
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12 col-lg-8">
             <div class="card mb-5 mt-5 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">
