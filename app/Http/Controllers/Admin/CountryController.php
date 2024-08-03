@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ActionData\University\UniversityActionData;
-use App\Filters\University\UniversityFilter;
+use App\ActionData\Country\CountryActionData;
+use App\Filters\Country\CountryFilter;
 use App\Http\Controllers\Controller;
-use App\Services\Admin\UniversityService;
-use App\ViewModels\University\UniversityViewModel;
+use App\Services\Admin\CountryService;
+use App\ViewModels\Country\CountryViewModel;
 use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
-class UniversityController extends Controller
+class CountryController extends Controller
 {
-
-    public function __construct(protected UniversityService $service)
+    public function __construct(protected CountryService $service)
     {
     }
 
@@ -26,10 +26,10 @@ class UniversityController extends Controller
 
     public function index(Request $request): View
     {
-        $filters[] = UniversityFilter::getRequest($request);
+        $filters[] = CountryFilter::getRequest($request);
         $collection = $this->service->paginate(page: (int)$request->get('page'), filters: $filters);
-        return (new PaginationViewModel($collection, UniversityViewModel::class))
-            ->toView('admin.universities.index');
+        return (new PaginationViewModel($collection, CountryViewModel::class))
+            ->toView('admin.countries.index');
     }
 
     /**
@@ -38,20 +38,20 @@ class UniversityController extends Controller
 
     public function create(): View
     {
-        $viewModel = UniversityViewModel::createEmpty();
-        return $viewModel->toView('admin.universities.create');
+        $viewModel = CountryViewModel::createEmpty();
+        return $viewModel->toView('admin.countries.create');
     }
 
     /**
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function store(Request $request):RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $actionData = StoreUniversityActionData::fromRequest($request);
+        $actionData = CountryActionData::fromRequest($request);
         $this->service->store($actionData);
-        return redirect()->route("universities.index")->with('res', [
+        return redirect()->route("countries.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -62,24 +62,24 @@ class UniversityController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function edit(int $id):View
+    public function edit(int $id): View
     {
         $data = $this->service->edit($id);
-        $viewModel = new UniversityViewModel($data);
-        return $viewModel->toView('admin.universities.edit');
+        $viewModel = new CountryViewModel($data);
+        return $viewModel->toView('admin.countries.edit');
     }
 
     /**
      * @param Request $request
      * @param int $id
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function update(Request $request, int $id):RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
-        $actionData = UniversityActionData::fromRequest($request);
+        $actionData = CountryActionData::fromRequest($request);
         $this->service->update($actionData, $id);
-        return redirect()->route("universities.index")->with('res', [
+        return redirect()->route("countries.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -90,10 +90,10 @@ class UniversityController extends Controller
      * @return RedirectResponse
      * @throws \Exception
      */
-    public function delete(int $id):RedirectResponse
+    public function delete(int $id): RedirectResponse
     {
         $this->service->delete($id);
-        return redirect()->route("universities.index")->with('res', [
+        return redirect()->route("countries.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);

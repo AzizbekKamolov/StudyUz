@@ -28,4 +28,22 @@ return [
         "add_user" => "Foydalanuvchi qo'shish",
         "edit_user" => "Foydalanuvchini tahrirlash",
     ],
+    "university" => [
+        "university" => "Universitet",
+        "universities" => "Universitetlar",
+        "add_university" => "Universitet qo'shish",
+        "edit_university" => "Universitetni tahrirlash",
+    ],
+    "country" => [
+        "country" => "Davlat",
+        "countries" => "Davlatlar",
+        "add_country" => "Davlat qo'shish",
+        "edit_country" => "Davlatni tahrirlash",
+    ],
+    "city" => [
+        "city" => "Shahar",
+        "cities" => "Shaharlar",
+        "add_city" => "Shahar qo'shish",
+        "edit_city" => "Shaharni tahrirlash",
+    ],
 ];

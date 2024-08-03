@@ -1,8 +1,20 @@
 <div class="page-sidebar-inner">
     <div class="page-sidebar-menu">
         <ul class="accordion-menu">
+            <li class="@if(request()->routeIs('countries.*'))active @endif">
+                <a href="{{ route('countries.index') }}"><i class="fa fa-map-marker"></i>
+                    <span>Davlatlar</span></a>
+            </li>
+            <li class="@if(request()->routeIs('cities.*'))active @endif">
+                <a href="{{ route('cities.index') }}"><i class="fa fa-map-signs"></i>
+                    <span>Shaharlar</span></a>
+            </li>
+            <li class="@if(request()->routeIs('universities.*'))active @endif">
+                <a href="{{ route('universities.index') }}"><i class="fa fa-university"></i>
+                    <span>Universitetlar</span></a>
+            </li>
             <li class="@if(request()->routeIs('permissions.*', 'roles.*', 'users.*')) open active @endif">
-                <a href="javascript:void(0)"><i class="fa fa-bar-chart"></i>
+                <a href="javascript:void(0)"><i class="fa fa-cogs"></i>
                     <span>Boshqaruv</span><i class="accordion-icon fa fa-angle-left"></i></a>
                 <ul class="sub-menu" style="display: block;">
                     <li class="@if(request()->routeIs('users.*'))active @endif"><a href="{{ route('users.index') }}"><i

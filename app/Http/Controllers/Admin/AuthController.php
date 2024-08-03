@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ActionData\Management\Auth\LoginUserActionData;
+use App\ActionData\Auth\LoginUserActionData;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\AuthService;
 use Illuminate\Http\RedirectResponse;

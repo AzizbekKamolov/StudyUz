@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\ActionData\Management\Auth;
+namespace App\ActionData\Auth;
 
 use App\ActionData\ActionDataBase;
 

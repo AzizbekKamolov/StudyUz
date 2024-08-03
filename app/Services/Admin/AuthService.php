@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Services\Admin;
 
 
-use App\ActionData\Management\Auth\LoginUserActionData;
+use App\ActionData\Auth\LoginUserActionData;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

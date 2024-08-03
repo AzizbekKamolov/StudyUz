@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models\Management;
 
 use App\Filters\Trait\EloquentFilterTrait;

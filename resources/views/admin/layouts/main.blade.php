@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <meta name="keyword" content="">
     <meta name="author" content=""/>
     <!-- Page Title -->
-    <title>Blank Layout | Adminify - Multipurpose Admin Dashboard Template</title>
+    <title>Study uz</title>
     <!-- Main CSS -->
     <link href="{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet"/>
     <link href="{{ asset("assets/plugins/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet"/>
@@ -135,7 +135,7 @@
 <script src="{{ asset("assets/js/adminify.js") }}"></script>
 <script src="{{ asset("assets/plugins/toastr/toastr.min.js") }}"></script>
 <script src="{{ asset("assets/js/custom.js") }}"></script>
-@yield('script')
+@yield('js')
 @if(session()->has('res'))
     <script>
         $(document).ready(function () {
