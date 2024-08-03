@@ -10,12 +10,14 @@
                             <form action="{{ route('users.index') }}">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" name="search" placeholder="{{ __('table.search') }}">
+                                        <input type="text" class="form-control" name="search"
+                                               placeholder="{{ __('table.search') }}">
                                     </div>
                                     <div class="col">
-                                        <select class="form-control"  name="role_id">
-                                            <option value="" disabled selected>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
-                                        @foreach($roles as $role)
+                                        <select class="form-control" name="role_id">
+                                            <option value="" disabled
+                                                    selected>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
+                                            @foreach($roles as $role)
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>
@@ -26,12 +28,14 @@
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route("users.create") }}" class="btn btn-outline-success">
-                            <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                        @can('users.store')
+                            <a href="{{ route("users.create") }}" class="btn btn-outline-success">
+                                <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                        @endcan
                     </div>
-{{--                    <h4 class="card-header-title">--}}
-{{--                        {{ __('form.user.users') }}--}}
-{{--                    </h4>--}}
+                    {{--                    <h4 class="card-header-title">--}}
+                    {{--                        {{ __('form.user.users') }}--}}
+                    {{--                    </h4>--}}
 
                 </div>
                 <div class="card-body collapse show" id="collapse2">
@@ -61,14 +65,18 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route("users.edit", [$item->id]) }}">
-                                        <i class="fa fa-edit text-purple button-2x"></i></a>
-                                    <a href="">
-{{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
-                                    <a href="{{ route("users.delete", [$item->id]) }}" class=""
-                                       onclick="return confirm(this.getAttribute('data-message'));"
-                                       data-message="{{ __('table.confirm_delete') }}">
-                                        <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @can('users.update')
+                                        <a href="{{ route("users.edit", [$item->id]) }}">
+                                            <i class="fa fa-edit text-purple button-2x"></i></a>
+                                    @endcan
+                                    {{--                                    <a href="">--}}
+                                    {{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
+                                    @can('users.delete')
+                                        <a href="{{ route("users.delete", [$item->id]) }}" class=""
+                                           onclick="return confirm(this.getAttribute('data-message'));"
+                                           data-message="{{ __('table.confirm_delete') }}">
+                                            <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -7,8 +7,10 @@
                     <h4 class="card-header-title">
                         {{ __('form.role.roles') }}
                     </h4>
+                    @can('roles.store')
                         <a href="{{ route("roles.create") }}" class="btn btn-outline-success">
                             <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                    @endcan
                 </div>
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">
@@ -29,13 +31,18 @@
                                 <td>{{ $item->guard_name }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
-                                    <a href="{{ route("roles.edit", [$item->id]) }}">
-                                        <i class="fa fa-edit text-purple button-2x"></i></a>
-                                    <a href="">
-{{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
-                                    <a href="{{ route("roles.delete", [$item->id]) }}" class="" onclick="return confirm(this.getAttribute('data-message'));"
-                                       data-message="{{ __('table.confirm_delete') }}">
-                                        <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @can('roles.update')
+                                        <a href="{{ route("roles.edit", [$item->id]) }}">
+                                            <i class="fa fa-edit text-purple button-2x"></i></a>
+                                    @endcan
+                                    {{--                                    <a href="">--}}
+                                    {{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
+                                    @can('roles.delete')
+                                        <a href="{{ route("roles.delete", [$item->id]) }}" class=""
+                                           onclick="return confirm(this.getAttribute('data-message'));"
+                                           data-message="{{ __('table.confirm_delete') }}">
+                                            <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

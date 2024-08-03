@@ -91,12 +91,30 @@ class PermissionService
     }
 
     /**
-     * @return Permission[]|Builder[]|Collection
+     * @return array
      */
-    public function getAllPermissions()
+    public function getAllPermissions():array
     {
-        return Permission::query()
+
+        $data = Permission::query()
+            ->orderBy('name')
             ->get();
+        $permissions = [];
+        $last = '';
+        $i = 0;
+        foreach ($data as $permission){
+            $exploded = preg_split('/[.|_| ]/', $permission->name);
+            if ($last !== $exploded[0]) {
+                $i++;
+            }
+            $arr['name'] = $permission->name;
+            $arr['id'] = $permission->id;
+            $arr['code'] = $exploded[0];
+            $permissions[$i][] = $arr;
+            $last = $exploded[0];
+//            dd($permission, $exploded);
+        }
+        return $permissions;
 //            ->chunk(5);
     }
 }

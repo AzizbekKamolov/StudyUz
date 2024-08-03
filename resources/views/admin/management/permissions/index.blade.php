@@ -7,10 +7,12 @@
                     <h4 class="card-header-title">
                         {{ __('form.permission.permissions') }}
                     </h4>
-{{--                    <div class="">--}}
+                    {{--                    <div class="">--}}
+                    @can('permissions.store')
                         <a href="{{ route("permissions.create") }}" class="btn btn-outline-success">
                             <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
-{{--                    </div>--}}
+                    @endcan
+                    {{--                    </div>--}}
                 </div>
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">
@@ -31,13 +33,18 @@
                                 <td>{{ $item->guard_name }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
-                                    <a href="{{ route("permissions.edit", [$item->id]) }}">
-                                        <i class="fa fa-edit text-purple button-2x"></i></a>
-                                    <a href="">
-                                        <i class="fa fa-eye text-info button-2x"></i></a>
-                                    <a href="{{ route("permissions.delete", [$item->id]) }}" class="" onclick="return confirm(this.getAttribute('data-message'));"
-                                       data-message="{{ __('table.confirm_delete') }}">
-                                        <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @can('permissions.update')
+                                        <a href="{{ route("permissions.edit", [$item->id]) }}">
+                                            <i class="fa fa-edit text-purple button-2x"></i></a>
+                                    @endcan
+                                    {{--                                    <a href="">--}}
+                                    {{--                                        <i class="fa fa-eye text-info button-2x"></i></a>--}}
+                                    @can('permissions.store')
+                                        <a href="{{ route("permissions.delete", [$item->id]) }}" class=""
+                                           onclick="return confirm(this.getAttribute('data-message'));"
+                                           data-message="{{ __('table.confirm_delete') }}">
+                                            <i class="fa fa-trash-o text-danger button-2x"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
