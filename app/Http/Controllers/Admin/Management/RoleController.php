@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function index(Request $request): View
     {
         $filters[] = RoleFilter::getRequest($request);
-        $collection = $this->service->paginate(page: (int)$request->get('page'), filters: $filters);
+        $collection = $this->service->paginate(page: (int)$request->get('page'),limit: (int)$request->get('page', 10), filters: $filters);
         return (new PaginationViewModel($collection, RoleViewModel::class))
             ->toView('admin.management.roles.index');
     }

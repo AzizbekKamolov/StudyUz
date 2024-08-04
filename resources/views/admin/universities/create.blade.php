@@ -12,7 +12,8 @@
                     </h4>
                 </div>
                 <div class="card-body collapse show" id="collapse8">
-                    <form class="needs-validation" action="{{ route("universities.store") }}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route("universities.store") }}" method="post"
+                          enctype="multipart/form-data">
                         @csrf
                         <div class="nav-tabs-top">
                             <ul class="nav nav-tabs">
@@ -36,56 +37,56 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade active show mt-3 mb-3" id="navs-top-uz">
                                     <div class="mb-3">
-                                        <label for="name['uz']">Name uz</label>
-                                        <input type="text" class="form-control" id="name['uz']" name="name['uz']"
-                                               value="{{ old("name['uz']") }}">
-                                        @if($errors->has("name['uz']"))
-                                            <div class="text-danger">{{ $errors->first("name['uz']") }}</div>
+                                        <label for="name[uz]">{{ __('table.name', locale: 'uz') }}</label>
+                                        <input type="text" class="form-control" id="name[uz]" name="name[uz]"
+                                               value="{{ old("name[uz]") }}">
+                                        @if($errors->has("name.uz"))
+                                            <div class="text-danger">{{ $errors->first("name.uz") }}</div>
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote">Description uz</label>
-                                        <textarea id="summernote" name="description['uz']"></textarea>
-                                        @if($errors->has("description['uz']"))
-                                            <div class="text-danger">{{ $errors->first("description['uz']") }}</div>
+                                        <label for="summernote">{{ __('table.description', locale: 'uz') }}</label>
+                                        <textarea id="summernote" name="description_uz"></textarea>
+                                        @if($errors->has("description_uz"))
+                                            <div class="text-danger">{{ $errors->first("description_uz") }}</div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane fade mb-3 mt-3" id="navs-top-ru">
                                     <div class="mb-3">
-                                        <label for="name['ru']">Name Ru</label>
-                                        <input type="text" class="form-control" id="last_name" name="name['ru']"
-                                               value="{{ old("name['ru']") }}">
-                                        @if($errors->has("name['ru']"))
-                                            <div class="text-danger">{{ $errors->first("name['ru']") }}</div>
+                                        <label for="name[ru]">{{ __('table.name', locale: 'ru') }}</label>
+                                        <input type="text" class="form-control" id="name[ru]" name="name[ru]"
+                                               value="{{ old("name[ru]") }}">
+                                        @if($errors->has("name.ru"))
+                                            <div class="text-danger">{{ $errors->first("name.ru") }}</div>
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">Description ru</label>
+                                        <label for="summernote2">{{ __('table.description', locale: 'ru') }}</label>
                                         <div class="">
-                                            <textarea id="summernote3" name="description['ru']"></textarea>
+                                            <textarea id="summernote3" name="description_ru"></textarea>
                                         </div>
-                                        @if($errors->has("description['ru']"))
-                                            <div class="text-danger">{{ $errors->first("description['ru']") }}</div>
+                                        @if($errors->has("description_ru"))
+                                            <div class="text-danger">{{ $errors->first("description_ru") }}</div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane fade mb-3 mt-3" id="navs-top-en">
                                     <div class="mb-3">
-                                        <label for="name['en']">Name en</label>
-                                        <input type="text" class="form-control" id="name['en']" name="name['en']"
-                                               value="{{ old("name['en']") }}">
-                                        @if($errors->has("name['en']"))
-                                            <div class="text-danger">{{ $errors->first("name['en']") }}</div>
+                                        <label for="name[en]">{{ __('table.name', locale: 'en') }}</label>
+                                        <input type="text" class="form-control" id="name[en]" name="name[en]"
+                                               value="{{ old("name[en]") }}">
+                                        @if($errors->has("name.en"))
+                                            <div class="text-danger">{{ $errors->first("name.en") }}</div>
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">Description ru</label>
+                                        <label for="summernote2">{{ __('table.description', locale: 'en') }}</label>
                                         <div class="">
-                                            <textarea id="summernote2" name="description['en']"></textarea>
+                                            <textarea id="summernote2" name="description_en"></textarea>
                                         </div>
-                                        @if($errors->has("description['en']"))
-                                            <div class="text-danger">{{ $errors->first("description['en']") }}</div>
+                                        @if($errors->has("description_en"))
+                                            <div class="text-danger">{{ $errors->first("description_en") }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -93,7 +94,7 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
-                                <label for="logo">Logo</label>
+                                <label for="logo">{{ __('form.university.logo') }}</label>
                                 <input type="file" class="form-control file-value" id="logo" name="logo">
                                 @if($errors->has('logo'))
                                     <div class="text-danger">{{ $errors->first('logo') }}</div>
@@ -101,19 +102,26 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="country_id">Country</label>
-                                <input type="text" class="form-control" id="country_id" name="country_id"
-                                       value="{{ old('country_id') }}">
+                                <label for="country_id">{{ __('form.country.country') }}</label>
+                                <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                        aria-hidden="true" id="country_id" name="country_id">
+                                    <option value="" selected disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
+                                    @foreach($countries as $country)
+                                        <option
+                                            value="{{ $country->id }}">{{ $country->nameTr ?? $country->name_uz }}</option>
+                                    @endforeach
+                                </select>
                                 @if($errors->has('country_id'))
                                     <div class="text-danger">{{ $errors->first('country_id') }}</div>
                                 @endif
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="city_id">City</label>
-                                <input type="text" class="form-control" id="city_id" name="city_id"
-                                       value="{{ old('phone') }}">
-                                @if($errors->has('phone'))
-                                    <div class="text-danger">{{ $errors->first('phone') }}</div>
+                                <label for="city_id">{{ __('form.city.city') }}</label>
+                                <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                        aria-hidden="true" id="city_id" name="city_id">
+                                </select>
+                                @if($errors->has('city_id'))
+                                    <div class="text-danger">{{ $errors->first('city_id') }}</div>
                                 @endif
                             </div>
 
@@ -146,12 +154,32 @@
             height: 150
         });
 
-        // summernote.summernote()
-        // $(document).ready(function(){
-        //     $('#summernote').summernote();
-        //     $('#summernote2').summernote();
-        //     $('#summernote3').summernote();
-        // });
+        $(document).ready(function() {
+            // Event handler for the button click
+            $("#country_id").change(function(e) {
+                $("#city_id").html('');
+                // Make an AJAX request
+                $.ajax({
+                    url: '{{ route('cities.getCitiesByCountryId') }}?country_id=' + e.target.value, // Sample API endpoint
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // Update the content on success
+                        let items = `<option value="" selected
+                                                disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>`
+                        data.data.forEach(function (item, value) {
+                            console.log(item,value)
+                            items += `<option value="${item.id}">${item.nameTr ?? item.name_uz}</option>`
+                        })
+                        $("#city_id").html(items);
+                    },
+                    error: function(error) {
+                        // Handle errors
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
     </script>
 @endsection
 

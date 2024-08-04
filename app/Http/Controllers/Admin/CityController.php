@@ -11,6 +11,7 @@ use App\ViewModels\City\CityViewModel;
 use App\ViewModels\Country\CountryViewModel;
 use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -32,8 +33,12 @@ class CityController extends Controller
     {
         $filters[] = CityFilter::getRequest($request);
         $collection = $this->service->paginate(page: (int)$request->get('page'), filters: $filters);
+
+        $countries = $this->countryService->getAll();
+        $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
+
         return (new PaginationViewModel($collection, CityViewModel::class))
-            ->toView('admin.cities.index');
+            ->toView('admin.cities.index', compact('countries'));
     }
 
     /**
@@ -108,6 +113,21 @@ class CityController extends Controller
         return redirect()->route("cities.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCitiesByCountryId(Request $request): JsonResponse
+    {
+        $filters[] = CityFilter::getRequest($request);
+        $cities = $this->service->getCitiesByCountryId($filters);
+        $cities->transform(fn($city) => CityViewModel::fromDataObject($city));
+        return response()->json([
+           'status' => true,
+           'data' => $cities->toArray(),
         ]);
     }
 }

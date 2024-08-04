@@ -4,9 +4,11 @@
         <div class="col-md-12 col-lg-12 mb-5">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
-                    <h4 class="card-header-title">
-                        {{ __('form.permission.permissions') }}
-                    </h4>
+                   <div class="card-header-title">
+                       <h5>
+                           <a href="{{ route('permissions.index') }}">{{ __('form.permission.permissions') }}</a>
+                       </h5>
+                   </div>
                     {{--                    <div class="">--}}
                     @can('permissions.store')
                         <a href="{{ route("permissions.create") }}" class="btn btn-outline-success">
@@ -17,6 +19,31 @@
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">
                         <thead>
+                        <tr>
+                            <form action="{{ route("permissions.index") }}">
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" name="limit" style="width: 65px">
+                                        <option value="5" @selected(request('limit') == 5)>5</option>
+                                        <option value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10</option>
+                                        <option value="20" @selected(request('limit') == 20)>20</option>
+                                        <option value="30" @selected(request('limit') == 30)>30</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" name="name"
+                                           placeholder="{{ __('table.name') }}"
+                                           value="{{ request('name') }}">
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="col">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        <a href="{{ route('permissions.index') }}" class="btn btn-outline-info"><i
+                                                class="fa fa-refresh"></i></a>
+                                    </div>
+                                </td>
+                            </form>
+                        </tr>
                         <tr>
                             <th>#</th>
                             <th>{{ __('table.name') }}</th>

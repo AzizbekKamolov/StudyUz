@@ -19,7 +19,7 @@ class CountryService
      * @param iterable|null $filters
      * @return DataObjectCollection
      */
-    public function paginate(int $page = 1, int $limit = 15, ?iterable $filters = null): DataObjectCollection
+    public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = null): DataObjectCollection
     {
         $model = CountryModel::applyEloquentFilters($filters)
             ->orderBy('id', 'desc');

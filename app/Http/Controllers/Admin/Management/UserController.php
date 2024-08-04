@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $filters[] = UserFilter::getRequest($request);
-        $collection = $this->service->paginate(page: (int)$request->get('page'), filters: $filters);
+        $collection = $this->service->paginate(page: (int)$request->get('page'),limit: (int)$request->get('limit', 10), filters: $filters);
         $roles = (new RoleService())->getAllRoles();
         return (new PaginationViewModel($collection, UserViewModel::class))
             ->toView('admin.management.users.index', compact('roles'));

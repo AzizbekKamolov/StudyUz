@@ -4,43 +4,70 @@
         <div class="col-md-12 col-lg-12">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
-                    <div class="card-header-title d-flex justify-content-between">
-                        <h4><a href="{{ route('users.index') }}">{{ __('form.user.users') }}</a></h4>
-                        <div>
-                            <form action="{{ route('users.index') }}">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="text" class="form-control" name="search"
-                                               placeholder="{{ __('table.search') }}">
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-control" name="role_id">
-                                            <option value="" disabled
-                                                    selected>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
-                                            @foreach($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        @can('users.store')
-                            <a href="{{ route("users.create") }}" class="btn btn-outline-success">
-                                <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
-                        @endcan
+                    <div class="card-header-title">
+                        <h5><a href="{{ route('users.index') }}">{{ __('form.user.users') }}</a></h5>
                     </div>
-                    {{--                    <h4 class="card-header-title">--}}
-                    {{--                        {{ __('form.user.users') }}--}}
-                    {{--                    </h4>--}}
+                    @can('users.store')
+                        <a href="{{ route("users.create") }}" class="btn btn-outline-success">
+                            <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                    @endcan
 
                 </div>
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">
                         <thead>
+                        <tr>
+                            <form action="{{ route("users.index") }}">
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" name="limit" style="width: 65px">
+                                        <option value="5" @selected(request('limit') == 5)>5</option>
+                                        <option value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10</option>
+                                        <option value="20" @selected(request('limit') == 20)>20</option>
+                                        <option value="30" @selected(request('limit') == 30)>30</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="last_name"
+                                           placeholder="{{ __('form.common.last_name') }}"
+                                           value="{{ request('last_name') }}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="first_name"
+                                           placeholder="{{ __('form.common.first_name') }}"
+                                           value="{{ request('first_name') }}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="phone"
+                                           placeholder="{{ __('form.common.phone') }}"
+                                           value="{{ request('phone') }}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="email"
+                                           placeholder="{{ __('form.common.email') }}"
+                                           value="{{ request('email') }}">
+                                </td>
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                            aria-hidden="true" id="role_id" name="role_id">
+                                        <option value="" selected
+                                                disabled>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
+                                        @foreach($roles as $role)
+                                            <option
+                                                value="{{ $role->id }}"
+                                                @selected(request('role_id') == $role->id)
+                                            >{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        <a href="{{ route('users.index') }}" class="btn btn-outline-info"><i
+                                                class="fa fa-refresh"></i></a>
+                                    </div>
+                                </td>
+                            </form>
+                        </tr>
                         <tr>
                             <th>#</th>
                             <th>{{ __('form.common.last_name') }}</th>

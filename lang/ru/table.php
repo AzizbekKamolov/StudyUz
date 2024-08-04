@@ -13,4 +13,5 @@ return [
     "error_message" => "Произошла ошибка",
     "choose" => "выбрать",
     "search" => "Поиск",
+    "description" => "Описание",
 ];

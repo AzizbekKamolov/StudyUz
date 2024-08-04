@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UniversityModel extends Model
 {
@@ -21,4 +22,16 @@ class UniversityModel extends Model
       'created_at',
       'updated_at',
     ];
+    protected $casts = [
+      "name" => "array"
+    ];
+
+    public function country():BelongsTo
+    {
+        return $this->belongsTo(CountryModel::class, 'country_id');
+    }
+    public function city():BelongsTo
+    {
+        return $this->belongsTo(CityModel::class, 'city_id');
+    }
 }

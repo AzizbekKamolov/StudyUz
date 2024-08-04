@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         });
         Route::controller(CityController::class)->name('cities.')->prefix('cities')->group(function () {
             Route::get('/', 'index')->name('index')->can('cities.index');
+            Route::get('/get-all-by-country-id', 'getCitiesByCountryId')->name('getCitiesByCountryId')->can('cities.store');
             Route::get('/create', 'create')->name('create')->can('cities.store');
             Route::post('/store', 'store')->name('store')->can('cities.store');
             Route::get('{id}/edit', 'edit')->name('edit')->can('cities.update');

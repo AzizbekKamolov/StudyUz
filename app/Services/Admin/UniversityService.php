@@ -11,26 +11,36 @@ use App\Models\UniversityModel;
 use App\Utils\Phone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class UniversityService
 {
+    const IMAGE_PATH = "logos/";
+
     /**
      * @param int $page
      * @param int $limit
      * @param iterable|null $filters
      * @return DataObjectCollection
      */
-    public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = null)
+    public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = null): DataObjectCollection
     {
         $model = UniversityModel::applyEloquentFilters($filters)
+            ->leftJoin('countries', 'countries.id', 'universities.country_id')
+            ->leftJoin('cities', 'cities.id', 'universities.city_id')
+            ->select([
+                'universities.*',
+                'countries.name as country_name',
+                'cities.name as city_name',
+            ])
             ->orderBy('id', 'desc');
 
         $totalCount = $model->count();
         $skip = $limit * ($page - 1);
         $items = $model->skip($skip)->take($limit)->get();
-        $items->transform(function (UniversityModel $user) {
-            return UniversityData::createFromEloquentModel($user);
+        $items->transform(function (UniversityModel $university) {
+            return UniversityData::fromModel($university);
         });
         return new DataObjectCollection($items, $totalCount, $limit, $page);
     }
@@ -42,28 +52,26 @@ class UniversityService
      */
     public function store(UniversityActionData $actionData): UniversityData
     {
-        $phone = new Phone($actionData->phone);
-        if (!$phone->validate()){
-            throw ValidationException::withMessages(['phone' => trans("validation.not_regex", [
-                'attribute' => 'phone'
-            ])]);
-        }
+        $actionData->addValidationRule('logo', 'required');
+        $actionData->validateException();
+
         $data = $actionData->all();
-        unset($data['role_id']);
-        $data['phone'] = $phone->getFull();
-        $data['password'] = bcrypt($actionData->password);
-        $user = UniversityModel::query()->create($data);
-        $user->syncRoles($actionData->role_id);
-        return UniversityData::fromModel($user);
+        if ($actionData->logo) {
+            $imageName = Str::uuid(10) . '.' . $actionData->logo->getClientOriginalExtension();
+            $actionData->logo->move(public_path(self::IMAGE_PATH), $imageName);
+            $data['logo'] = $imageName;
+        }
+        $university = UniversityModel::query()->create($data);
+        return UniversityData::fromModel($university);
     }
 
     /**
      * @param int $id
      * @return UniversityModel|Builder|Model
      */
-    public function getOne(int $id):UniversityModel|Builder|Model
+    public function getOne(int $id): UniversityModel|Builder|Model
     {
-        return UniversityModel::query()->with('roles')->findOrFail($id);
+        return UniversityModel::query()->findOrFail($id);
     }
 
     /**
@@ -85,31 +93,21 @@ class UniversityService
      */
     public function update(UniversityActionData $actionData, int $id): UniversityData
     {
-        $phone = new Phone($actionData->phone);
-        if (!$phone->validate()){
-            throw ValidationException::withMessages(['phone' => trans("validation.not_regex", [
-                'attribute' => 'phone'
-            ])]);
-        }
-        $actionData->phone = $phone->getFull();
-        $actionData->addValidationRule('email', "unique:users,email,$id");
-        $actionData->addValidationRule('phone', "unique:users,phone,$id");
-        $actionData->validateException();
-
         $data = $actionData->all();
-        unset($data['role_id']);
-        unset($data['password']);
-        if (isset($actionData->password)){
-            $data['password'] = bcrypt($actionData->password);
+        $university = $this->getOne($id);
+        unset($data['logo']);
+        if ($actionData->logo) {
+            $imageName = Str::uuid(10) . '.' . $actionData->logo->getClientOriginalExtension();
+            $actionData->logo->move(public_path(self::IMAGE_PATH), $imageName);
+            $data['logo'] = $imageName;
+            if (file_exists(public_path(self::IMAGE_PATH . $university->logo))) {
+                unlink(public_path(self::IMAGE_PATH . $university->logo));
+            }
         }
 
-        $user = UniversityModel::query()->findOrFail($id);
-        $user->syncRoles($actionData->role_id);
-        $user = $this->getOne($id);
-        $user->fill($data);
-        $user->save();
-        $user->syncRoles($actionData->role_id);
-        return UniversityData::fromModel($user);
+        $university->fill($data);
+        $university->save();
+        return UniversityData::fromModel($university);
     }
 
     /**
@@ -119,7 +117,10 @@ class UniversityService
      */
     public function delete(int $id): void
     {
-        $user = $this->getOne($id);
-        $user->delete();
+        $university = $this->getOne($id);
+        if (file_exists(public_path(self::IMAGE_PATH . $university->logo))) {
+            unlink(public_path(self::IMAGE_PATH . $university->logo));
+        }
+        $university->delete();
     }
 }

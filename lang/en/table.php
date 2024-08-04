@@ -13,4 +13,5 @@ return [
     "error_message" => "An error occurred",
     "choose" => "Choose",
     "search" => "Search",
+    "description" => "Description",
 ];

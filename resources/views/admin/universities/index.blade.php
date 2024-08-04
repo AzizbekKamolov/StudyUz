@@ -4,50 +4,68 @@
         <div class="col-md-12 col-lg-12">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
-                    <div class="card-header-title d-flex justify-content-between">
-                        <h4><a href="{{ route('universities.index') }}">{{ __('form.user.universities') }}</a></h4>
-                        <div>
-                            <form action="{{ route('universities.index') }}">
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="text" class="form-control" name="search"
-                                               placeholder="{{ __('table.search') }}">
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-control" name="role_id">
-                                            <option value="" disabled
-                                                    selected>{{ __('form.role.role') }} {{ __('table.choose') }}</option>
-{{--                                            @foreach($roles as $role)--}}
-{{--                                                <option value="{{ $role->id }}">{{ $role->name }}</option>--}}
-{{--                                            @endforeach--}}
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        @can('universities.store')
-                            <a href="{{ route("universities.create") }}" class="btn btn-outline-success">
-                                <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
-                        @endcan
+                    <div class="card-header-title">
+                        <h5><a href="{{ route('universities.index') }}">{{ __('form.university.universities') }}</a>
+                        </h5>
                     </div>
-                    {{--                    <h4 class="card-header-title">--}}
-                    {{--                        {{ __('form.user.universities') }}--}}
-                    {{--                    </h4>--}}
-
+                    @can('universities.store')
+                        <a href="{{ route("universities.create") }}" class="btn btn-outline-success">
+                            <i class="fa fa-plus button-2x"> {{ __('table.add') }}</i></a>
+                    @endcan
                 </div>
-                <div class="card-body collapse show" id="collapse2">
+
+                <div class="card-body">
                     <table class="table table-striped table-responsive-sm">
                         <thead>
                         <tr>
+                            <form action="{{ route("universities.index") }}">
+                                <td></td>
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" name="limit" style="width: 65px">
+                                        <option value="5" @selected(request('limit') == 5)>5</option>
+                                        <option value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10</option>
+                                        <option value="20" @selected(request('limit') == 20)>20</option>
+                                        <option value="30" @selected(request('limit') == 30)>30</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" name="name"
+                                           placeholder="{{ __('table.name') }}"
+                                           value="{{ request('name') }}"
+                                    ></td>
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                            aria-hidden="true" id="country_id" name="country_id">
+                                        <option value="" selected
+                                                disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
+                                        @foreach($countries as $country)
+                                            <option
+                                                value="{{ $country->id }}"
+                                                @selected(request('country_id') == $country->id)
+                                            >{{ $country->nameTr ?? $country->name_uz }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                            aria-hidden="true" id="city_id" name="city_id">
+                                        <option value="" selected
+                                                disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>
+                                    </select></td>
+                                <td>
+                                    <div class="col">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        <a href="{{ route('universities.index') }}" class="btn btn-outline-info"><i
+                                                class="fa fa-refresh"></i></a>
+                                    </div>
+                                </td>
+                            </form>
+                        </tr>
+                        <tr>
                             <th>#</th>
-                            <th>{{ __('form.common.last_name') }}</th>
-                            <th>{{ __('form.common.first_name') }}</th>
-                            <th>{{ __('form.common.phone') }}</th>
-                            <th>{{ __('form.common.email') }}</th>
-                            <th>{{ __('form.role.roles') }}</th>
+                            <th>{{ __('form.university.logo') }}</th>
+                            <th>{{ __('table.name') }}</th>
+                            <th>{{ __('form.country.country') }}</th>
+                            <th>{{ __('form.city.city') }}</th>
                             <th>{{ __('table.actions') }}</th>
                         </tr>
                         </thead>
@@ -55,15 +73,13 @@
                         @foreach($pagination->items() as $item)
                             <tr>
                                 <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
-                                <td>{{ $item->last_name }}</td>
-                                <td>{{ $item->first_name }}</td>
-                                <td>{{ $item->phone }}</td>
-                                <td>{{ $item->email }}</td>
                                 <td>
-                                    @foreach($item->roles as $userRole)
-                                        <span class="badge badge-success">{{ $userRole['name'] }}</span>
-                                    @endforeach
+                                    <img src="{{ asset("/logos/$item->logo") }}" alt="Logo" width="100">
                                 </td>
+                                <td>{{ $item->nameTr }}</td>
+                                <td>{{ $item->country_name }}</td>
+                                <td>{{ $item->city_name }}</td>
+                                {{--                                <td>{!! $item->description_uz !!}</td>--}}
                                 <td>
                                     @can('universities.update')
                                         <a href="{{ route("universities.edit", [$item->id]) }}">
@@ -91,5 +107,35 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
-
+@section('js')
+    <script>
+        $(document).ready(function () {
+            // Event handler for the button click
+            $("#country_id").change(function (e) {
+                $("#city_id").html(`<option value="" selected disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>`);
+                // Make an AJAX request
+                $.ajax({
+                    url: '{{ route('cities.getCitiesByCountryId') }}?country_id=' + e.target.value, // Sample API endpoint
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // Update the content on success
+                        console.log(data.data)
+                        let items = `<option value="" selected
+                                                disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>`
+                        data.data.forEach(function (item, value) {
+                            items += `<option value="${item.id}">${item.nameTr ?? item.name_uz}</option>`
+                        })
+                        $("#city_id").html(items);
+                    },
+                    error: function(error) {
+                        // Handle errors
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+@endsection

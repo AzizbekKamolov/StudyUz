@@ -4,9 +4,10 @@
         <div class="col-md-12 col-lg-12 mb-5">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
-                    <h4 class="card-header-title">
-                        {{ __('form.city.cities') }}
-                    </h4>
+                    <div class="card-header-title">
+                        <h5><a href="{{ route('cities.index') }}">{{ __('form.city.cities') }}</a>
+                        </h5>
+                    </div>
                     {{--                    <div class="">--}}
                     @can('cities.store')
                         <a href="{{ route("cities.create") }}" class="btn btn-outline-success">
@@ -17,6 +18,43 @@
                 <div class="card-body collapse show" id="collapse2">
                     <table class="table table-striped table-responsive-sm">
                         <thead>
+                        <tr>
+                            <form action="{{ route("cities.index") }}">
+                                <th>
+                                    <select class="form-control select2 select2-hidden-accessible" name="limit" style="width: 65px">
+                                        <option value="5" @selected(request('limit') == 5)>5</option>
+                                        <option value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10</option>
+                                        <option value="20" @selected(request('limit') == 20)>20</option>
+                                        <option value="30" @selected(request('limit') == 30)>30</option>
+                                    </select>
+                                </th>
+                                <th><input type="text" class="form-control" name="name"
+                                           placeholder="{{ __('table.name') }}"
+                                           value="{{ request('name') }}">
+                                </th>
+                                <th>
+                                    <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                            aria-hidden="true" id="country_id" name="country_id">
+                                        <option value="" selected
+                                                disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
+                                        @foreach($countries as $country)
+                                            <option
+                                                value="{{ $country->id }}"
+                                                @selected(request('country_id') == $country->id)
+                                            >{{ $country->nameTr ?? $country->name_uz }}</option>
+                                        @endforeach
+                                    </select>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <div class="col">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                        <a href="{{ route('cities.index') }}" class="btn btn-outline-info"><i
+                                                class="fa fa-refresh"></i></a>
+                                    </div>
+                                </th>
+                            </form>
+                        </tr>
                         <tr>
                             <th>#</th>
                             <th>{{ __('table.name') }}</th>

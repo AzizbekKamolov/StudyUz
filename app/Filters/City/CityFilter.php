@@ -18,8 +18,10 @@ class CityFilter implements EloquentFilterContract
     public function applyEloquent(Builder $model): Builder
     {
         if ($this->request->has('name')) {
-            return $model
-                ->where('name', 'like', '%' . $this->request->get('name') . '%');
+            $model->where('name', 'like', '%' . $this->request->get('name') . '%');
+        }
+        if ($this->request->get('country_id')) {
+            $model->where('country_id', '=', $this->request->get('country_id'));
         }
         return $model;
     }

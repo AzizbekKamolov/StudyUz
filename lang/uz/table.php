@@ -13,4 +13,5 @@ return [
     "error_message" => "Xatolik yuz berdi",
     "choose" => "tanlang",
     "search" => "Qidiruv",
+    "description" => "Izoh",
 ];

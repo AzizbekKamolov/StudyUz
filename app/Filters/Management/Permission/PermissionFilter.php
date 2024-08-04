@@ -18,8 +18,7 @@ class PermissionFilter implements EloquentFilterContract
     public function applyEloquent(Builder $model): Builder
     {
         if ($this->request->has('name')) {
-            return $model
-                ->where('name', 'like', '%' . $this->request->get('name') . '%');
+            return $model->where('name', 'like', '%' . $this->request->get('name') . '%');
         }
         return $model;
     }

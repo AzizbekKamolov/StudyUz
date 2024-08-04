@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\ActionData\University\UniversityActionData;
+use App\Filters\City\CityFilter;
 use App\Filters\University\UniversityFilter;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\CityService;
+use App\Services\Admin\CountryService;
 use App\Services\Admin\UniversityService;
+use App\ViewModels\City\CityViewModel;
+use App\ViewModels\Country\CountryViewModel;
 use App\ViewModels\University\UniversityViewModel;
 use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
@@ -15,7 +20,10 @@ use Illuminate\Http\Request;
 class UniversityController extends Controller
 {
 
-    public function __construct(protected UniversityService $service)
+    public function __construct(
+        protected UniversityService $service,
+        protected CountryService $countryService,
+    )
     {
     }
 
@@ -27,9 +35,12 @@ class UniversityController extends Controller
     public function index(Request $request): View
     {
         $filters[] = UniversityFilter::getRequest($request);
-        $collection = $this->service->paginate(page: (int)$request->get('page'), filters: $filters);
+        $collection = $this->service->paginate(page: (int)$request->get('page'), limit:(int)$request->get('limit', 10),  filters: $filters);
+
+        $countries = $this->countryService->getAll();
+        $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
         return (new PaginationViewModel($collection, UniversityViewModel::class))
-            ->toView('admin.universities.index');
+            ->toView('admin.universities.index', compact('countries'));
     }
 
     /**
@@ -38,8 +49,11 @@ class UniversityController extends Controller
 
     public function create(): View
     {
+        $countries = $this->countryService->getAll();
+        $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
+
         $viewModel = UniversityViewModel::createEmpty();
-        return $viewModel->toView('admin.universities.create');
+        return $viewModel->toView('admin.universities.create', compact('countries'));
     }
 
     /**
@@ -49,7 +63,7 @@ class UniversityController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
-        $actionData = StoreUniversityActionData::fromRequest($request);
+        $actionData = UniversityActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("universities.index")->with('res', [
             "method" => "success",
@@ -62,11 +76,19 @@ class UniversityController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function edit(int $id):View
+    public function edit(Request $request, int $id):View
     {
+
         $data = $this->service->edit($id);
         $viewModel = new UniversityViewModel($data);
-        return $viewModel->toView('admin.universities.edit');
+
+        $countries = $this->countryService->getAll();
+        $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
+        $request->request->set('country_id', $data->country_id);
+        $filters[] = CityFilter::getRequest($request);
+        $cities = (new CityService())->getCitiesByCountryId($filters);
+        $cities->transform(fn($city) => CityViewModel::fromDataObject($city));
+        return $viewModel->toView('admin.universities.edit', compact('countries', 'cities'));
     }
 
     /**

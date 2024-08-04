@@ -88,4 +88,17 @@ class CityService
         $country->delete();
     }
 
+    /**
+     * @param iterable|null $filters
+     * @return Model|Builder|Collection
+     */
+    public function getCitiesByCountryId(?iterable $filters = null):Model|Builder|Collection
+    {
+        $items = CityModel::applyEloquentFilters($filters)->get();
+
+        return $items->transform(function (CityModel $country) {
+            return CityData::fromModel($country);
+        });
+    }
+
 }

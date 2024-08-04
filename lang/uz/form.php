@@ -30,6 +30,7 @@ return [
     ],
     "university" => [
         "university" => "Universitet",
+        "logo" => "Universitet logosi",
         "universities" => "Universitetlar",
         "add_university" => "Universitet qo'shish",
         "edit_university" => "Universitetni tahrirlash",
