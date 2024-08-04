@@ -11,6 +11,7 @@ use App\Models\UniversityModel;
 use App\Utils\Phone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -122,5 +123,15 @@ class UniversityService
             unlink(public_path(self::IMAGE_PATH . $university->logo));
         }
         $university->delete();
+    }
+
+    /**
+     * @return UniversityModel|Collection
+     */
+    public function getAllUniversities():UniversityModel|Collection
+    {
+        $universities = UniversityModel::query()
+            ->get();
+        return $universities->transform(fn(UniversityModel $model) => UniversityData::fromModel($model));
     }
 }

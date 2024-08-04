@@ -35,6 +35,15 @@ return [
         "add_university" => "Universitet qo'shish",
         "edit_university" => "Universitetni tahrirlash",
     ],
+    "direction" => [
+        "direction" => "Universitet yo'nalishi",
+        "contract_amount" => "Kontrakt narxi",
+        "contract_currency" => "Kontrakt to'lov pul birligi",
+        "requirement" => "Yo'nalish talablari",
+        "directions" => "Universitet yo'nalishlari",
+        "add_direction" => "Universitet yo'nalishlarini qo'shish",
+        "edit_direction" => "Universitet yo'nalishlarini tahrirlash",
+    ],
     "country" => [
         "country" => "Davlat",
         "countries" => "Davlatlar",

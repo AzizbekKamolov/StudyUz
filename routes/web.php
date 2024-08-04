@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DirectionController;
 use App\Http\Controllers\Admin\Management\PermissionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Management\RoleController;
@@ -43,6 +44,14 @@ Route::middleware('auth')->group(function () {
             Route::get('{id}/edit', 'edit')->name('edit')->can('universities.update');
             Route::put('{id}/update', 'update')->name('update')->can('universities.update');
             Route::get('{id}/delete', 'delete')->name('delete')->can('universities.delete');
+        });
+        Route::controller(DirectionController::class)->name('directions.')->prefix('directions')->group(function () {
+            Route::get('/', 'index')->name('index')->can('directions.index');
+            Route::get('/create', 'create')->name('create')->can('directions.store');
+            Route::post('/store', 'store')->name('store')->can('directions.store');
+            Route::get('{id}/edit', 'edit')->name('edit')->can('directions.update');
+            Route::put('{id}/update', 'update')->name('update')->can('directions.update');
+            Route::get('{id}/delete', 'delete')->name('delete')->can('directions.delete');
         });
 
         Route::controller(PermissionController::class)->name('permissions.')->prefix('permissions')->group(function () {
