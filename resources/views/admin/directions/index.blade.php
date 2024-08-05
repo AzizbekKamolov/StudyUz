@@ -5,7 +5,7 @@
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
                     <div class="card-header-title">
-                        <h5><a href="{{ route('directions.index') }}">{{ __('form.university.directions') }}</a>
+                        <h5><a href="{{ route('directions.index') }}">{{ __('form.direction.directions') }}</a>
                         </h5>
                     </div>
                     @can('directions.store')
@@ -21,35 +21,35 @@
                             <form action="{{ route("directions.index") }}">
                                 <td></td>
                                 <td>
-                                    <select class="form-control select2 select2-hidden-accessible" name="limit" style="width: 65px">
+                                    <select class="form-control select2 select2-hidden-accessible" name="limit"
+                                            style="width: 65px">
                                         <option value="5" @selected(request('limit') == 5)>5</option>
-                                        <option value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10</option>
+                                        <option
+                                            value="10" @selected(request('limit') == 10 || is_null(request('limit')))>10
+                                        </option>
                                         <option value="20" @selected(request('limit') == 20)>20</option>
                                         <option value="30" @selected(request('limit') == 30)>30</option>
                                     </select>
                                 </td>
                                 <td><input type="text" class="form-control" name="name"
                                            placeholder="{{ __('table.name') }}"
-                                           value="{{ request('name') }}"
-                                    ></td>
+                                           value="{{ request('name') }}">
+                                </td>
                                 <td>
-                                    <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
-                                            aria-hidden="true" id="country_id" name="country_id">
-                                        <option value="" selected
-                                                disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
-{{--                                        @foreach($countries as $country)--}}
-{{--                                            <option--}}
-{{--                                                value="{{ $country->id }}"--}}
-{{--                                                @selected(request('country_id') == $country->id)--}}
-{{--                                            >{{ $country->nameTr ?? $country->name_uz }}</option>--}}
-{{--                                        @endforeach--}}
-                                    </select>
+                                    <input class="form-control" type="text" name="contract_currency"
+                                           placeholder="{{ __('form.direction.contract_currency') }}" value="{{ request('contract_currency') }}">
                                 </td>
                                 <td>
                                     <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
-                                            aria-hidden="true" id="city_id" name="city_id">
+                                            aria-hidden="true" id="university_id" name="university_id">
                                         <option value="" selected
-                                                disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>
+                                                disabled>{{ __('form.university.university') }} {{ __('table.choose') }}</option>
+                                        @foreach($universities as $university)
+                                            <option
+                                                value="{{ $university->id }}"
+                                                @selected(request('university_id') == $university->id)>
+                                                {{ $university->nameTr ?? $university->name_uz }}</option>
+                                        @endforeach
                                     </select></td>
                                 <td>
                                     <div class="col">
@@ -60,12 +60,13 @@
                                 </td>
                             </form>
                         </tr>
-                        
+
                         <tr>
                             <th>#</th>
                             <th>{{ __('table.name') }}</th>
-                            <th>{{ __('form.country.country') }}</th>
-                            <th>{{ __('form.city.city') }}</th>
+                            <th>{{ __('form.direction.requirement') }}</th>
+                            <th>{{ __('form.direction.contract_amount') }}</th>
+                            <th>{{ __('form.university.university') }}</th>
                             <th>{{ __('table.actions') }}</th>
                         </tr>
                         </thead>
@@ -75,10 +76,8 @@
                                 <th scope="row">{{ ($pagination->currentpage()-1) * $pagination->perpage() + $loop->index + 1 }}</th>
                                 <td>{{ $item->nameTr }}</td>
                                 <td>{!! $item->requirementTr !!}</td>
-                                <td>{{ $item->contract_amount }}</td>
-                                <td>{{ $item->contract_currency_tr }}</td>
+                                <td>{{ $item->contract_amount . " ($item->contract_currency_tr)" }}</td>
                                 <td>{{ $item->universityName }}</td>
-                                {{--                                <td>{!! $item->description_uz !!}</td>--}}
                                 <td>
                                     @can('directions.update')
                                         <a href="{{ route("directions.edit", [$item->id]) }}">
@@ -119,7 +118,7 @@
                     url: '{{ route('cities.getCitiesByCountryId') }}?country_id=' + e.target.value, // Sample API endpoint
                     method: 'GET',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         // Update the content on success
                         console.log(data.data)
                         let items = `<option value="" selected
@@ -129,7 +128,7 @@
                         })
                         $("#city_id").html(items);
                     },
-                    error: function(error) {
+                    error: function (error) {
                         // Handle errors
                         console.error('Error:', error);
                     }

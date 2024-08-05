@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\ActionData\City\CityActionData;
@@ -60,9 +60,8 @@ class CityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CityActionData $actionData): RedirectResponse
     {
-        $actionData = CityActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("cities.index")->with('res', [
             "method" => "success",
@@ -92,9 +91,8 @@ class CityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(CityActionData $actionData, int $id): RedirectResponse
     {
-        $actionData = CityActionData::fromRequest($request);
         $this->service->update($actionData, $id);
         return redirect()->route("cities.index")->with('res', [
             "method" => "success",

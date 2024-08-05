@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\ViewModels\City;
 
+use Akbarali\ViewModel\BaseViewModel;
 use App\DataObjects\Country\CountryData;
-use App\ViewModels\BaseViewModel;
 use Illuminate\Support\Carbon;
 
 class CityViewModel extends BaseViewModel

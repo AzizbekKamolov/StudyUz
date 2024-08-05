@@ -1,8 +1,8 @@
 <?php
-
+declare(strict_types=1);
 namespace App\ActionData\University;
 
-use App\ActionData\ActionDataBase;
+use Akbarali\ActionData\ActionDataBase;
 use Illuminate\Http\UploadedFile;
 
 class UniversityActionData extends ActionDataBase

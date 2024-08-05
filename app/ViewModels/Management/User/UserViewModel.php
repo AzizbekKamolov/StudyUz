@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Management\User;
 
-use App\ViewModels\BaseViewModel;
-use Carbon\Carbon;
+use Akbarali\ViewModel\BaseViewModel;
+use App\Utils\Phone;
 
 class UserViewModel extends BaseViewModel
 {
@@ -18,5 +18,6 @@ class UserViewModel extends BaseViewModel
 
     protected function populate(): void
     {
+        $this->phone = (new Phone($this->phone))->format();
     }
 }

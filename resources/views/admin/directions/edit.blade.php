@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="d-flex justify-content-center">
-        <div class="col-md-10 col-lg-10">
+        <div class="col-md-12 col-lg-12">
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">
@@ -12,8 +12,7 @@
                     </h4>
                 </div>
                 <div class="card-body collapse show" id="collapse8">
-                    <form class="needs-validation" action="{{ route("universities.update", [$item->id]) }}" method="post"
-                          enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route("directions.update", [$item->id]) }}" method="post">
                         @method('PUT')
                         @csrf
                         <div class="nav-tabs-top">
@@ -46,10 +45,17 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote">{{ __('table.description', locale: 'uz') }}</label>
-                                        <textarea id="summernote" name="description_uz">{{ $item->description_uz }}</textarea>
-                                        @if($errors->has("description_uz"))
-                                            <div class="text-danger">{{ $errors->first("description_uz") }}</div>
+                                        <label for="summernote">{{ __('form.direction.requirement', locale: 'uz') }}</label>
+                                        <textarea id="summernote" name="requirement[uz]">{{ $item->requirement_uz }}</textarea>
+                                        @if($errors->has("requirement.uz"))
+                                            <div class="text-danger">{{ $errors->first("requirement.uz") }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contract_currency[uz]">{{ __('form.direction.contract_currency', locale: 'uz') }}($)</label>
+                                        <input type="text" class="form-control file-value" id="contract_currency[uz]" name="contract_currency[uz]" value="{{ $item->contract_currency_uz }}">
+                                        @if($errors->has('contract_currency.uz'))
+                                            <div class="text-danger">{{ $errors->first('contract_currency.uz') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -63,12 +69,19 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote3">{{ __('table.description', locale: 'ru') }}</label>
+                                        <label for="summernote2">{{ __('form.direction.requirement', locale: 'ru') }}</label>
                                         <div class="">
-                                            <textarea id="summernote3" name="description_ru">{{ $item->description_ru }}</textarea>
+                                            <textarea id="summernote3" name="requirement[ru]">{{ $item->requirement_ru }}</textarea>
                                         </div>
-                                        @if($errors->has("description_ru"))
-                                            <div class="text-danger">{{ $errors->first("description_ru") }}</div>
+                                        @if($errors->has("requirement.ru"))
+                                            <div class="text-danger">{{ $errors->first("requirement.ru") }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contract_currency[ru]">{{ __('form.direction.contract_currency', locale: 'ru') }}($)</label>
+                                        <input type="text" class="form-control file-value" id="contract_currency[ru]" name="contract_currency[ru]" value="{{ $item->contract_currency_ru }}">
+                                        @if($errors->has('contract_currency.ru'))
+                                            <div class="text-danger">{{ $errors->first('contract_currency.ru') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -82,64 +95,47 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">{{ __('table.description', locale: 'en') }}</label>
+                                        <label for="summernote2">{{ __('form.direction.requirement', locale: 'en') }}</label>
                                         <div class="">
-                                            <textarea id="summernote2" name="description_en">{{ $item->description_en }}</textarea>
+                                            <textarea id="summernote2" name="requirement[en]">{{ $item->requirement_en }}</textarea>
                                         </div>
-                                        @if($errors->has("description_en"))
-                                            <div class="text-danger">{{ $errors->first("description_en") }}</div>
+                                        @if($errors->has("requirement.en"))
+                                            <div class="text-danger">{{ $errors->first("requirement.en") }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contract_currency[en]">{{ __('form.direction.contract_currency', locale: 'en') }}($)</label>
+                                        <input type="text" class="form-control file-value" id="contract_currency[en]" name="contract_currency[en]" value="{{ $item->contract_currency_en }}">
+                                        @if($errors->has('contract_currency.en'))
+                                            <div class="text-danger">{{ $errors->first('contract_currency.en') }}</div>
                                         @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-8 mb-3">
-                                <label for="logo">{{ __('form.university.logo') }}</label>
-                                <input type="file" class="form-control file-value" id="logo" name="logo">
-                                @if($errors->has('logo'))
-                                    <div class="text-danger">{{ $errors->first('logo') }}</div>
-                                @endif
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div>
-                                    <label for="logo">{{ __('form.university.logo') }}</label>
-                                </div>
-                                <img src="{{ asset("logos/$item->logo") }}" alt="Logo" width="120">
-                            </div>
                             <div class="col-md-6 mb-3">
-                                <label for="country_id">{{ __('form.country.country') }}</label>
-                                <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
-                                        aria-hidden="true" id="country_id" name="country_id">
-                                    <option value="" selected disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
-                                    @foreach($countries as $country)
-                                        <option
-                                            value="{{ $country->id }}"
-                                        @selected($item->country_id === $country->id)
-                                        >{{ $country->nameTr ?? $country->name_uz }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('country_id'))
-                                    <div class="text-danger">{{ $errors->first('country_id') }}</div>
-                                @endif
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="city_id">{{ __('form.city.city') }}</label>
-                                <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
-                                        aria-hidden="true" id="city_id" name="city_id">
-                                    <option value="" selected disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>
-                                    @foreach($cities as $city)
-                                        <option
-                                            value="{{ $city->id }}"
-                                            @selected($item->city_id === $city->id)
-                                        >{{ $city->nameTr ?? $city->name_uz }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('city_id'))
-                                    <div class="text-danger">{{ $errors->first('city_id') }}</div>
+                                <label for="contract_amount">{{ __('form.direction.contract_amount') }}</label>
+                                <input type="text" class="form-control file-value" id="contract_amount" name="contract_amount" value="{{ $item->contract_amount }}">
+                                @if($errors->has('contract_amount'))
+                                    <div class="text-danger">{{ $errors->first('contract_amount') }}</div>
                                 @endif
                             </div>
 
+                            <div class="col-md-6 mb-3">
+                                <label for="university_id">{{ __('form.university.university') }}</label>
+                                <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
+                                        aria-hidden="true" id="university_id" name="university_id">
+                                    <option value="" selected disabled>{{ __('form.university.university') }} {{ __('table.choose') }}</option>
+                                    @foreach($universities as $university)
+                                        <option @selected($item->university_id == $university->id)
+                                            value="{{ $university->id }}">{{ $university->nameTr ?? $university->name_uz }}</option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('university_id'))
+                                    <div class="text-danger">{{ $errors->first('university_id') }}</div>
+                                @endif
+                            </div>
                         </div>
                         <div class="text-center mt-4">
                             <button class="btn btn-success col-md-4" type="submit">{{ __('table.save') }}</button>

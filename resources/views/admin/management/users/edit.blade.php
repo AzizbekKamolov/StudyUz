@@ -81,3 +81,7 @@
     </div>
 @endsection
 
+@section('js')
+    <script src="{{ asset('assets/plugins/formatter/jquery.formatter.min.js') }}"></script>
+    <script src="{{ asset('assets/js/formatter.js') }}"></script>
+@endsection

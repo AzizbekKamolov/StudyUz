@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace App\DataObjects\Direction;
 
-use App\DataObjects\DataObjectBase;
-use Illuminate\Support\Carbon;
+use Akbarali\DataObject\DataObjectBase;
+use App\DataObjects\University\UniversityData;
 
 class DirectionData extends DataObjectBase
 {
@@ -13,5 +13,6 @@ class DirectionData extends DataObjectBase
     public array $contract_currency;
     public int $contract_amount;
     public int $university_id;
+    public ?UniversityData $university;
 
 }

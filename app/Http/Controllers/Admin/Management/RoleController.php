@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Management;
 
 use App\ActionData\Management\Role\StoreRoleActionData;
@@ -49,9 +49,8 @@ class RoleController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRoleActionData $actionData): RedirectResponse
     {
-        $actionData = StoreRoleActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("roles.index")->with('res', [
             "method" => "success",
@@ -78,9 +77,8 @@ class RoleController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(UpdateRoleActionData $actionData, int $id): RedirectResponse
     {
-        $actionData = UpdateRoleActionData::fromRequest($request);
         $this->service->update($actionData, $id);
         return redirect()->route("roles.index")->with('res', [
             "method" => "success",

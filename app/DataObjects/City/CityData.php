@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\DataObjects\City;
 
+use Akbarali\DataObject\DataObjectBase;
 use App\DataObjects\Country\CountryData;
-use App\DataObjects\DataObjectBase;
 use Illuminate\Support\Carbon;
 
 class CityData extends DataObjectBase

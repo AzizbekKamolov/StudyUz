@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Management;
 
 use App\ActionData\Management\User\StoreUserActionData;
@@ -50,9 +50,8 @@ class UserController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserActionData $actionData): RedirectResponse
     {
-        $actionData = StoreUserActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("users.index")->with('res', [
             "method" => "success",
@@ -79,9 +78,8 @@ class UserController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(UpdateUserActionData $actionData, int $id): RedirectResponse
     {
-        $actionData = UpdateUserActionData::fromRequest($request);
         $this->service->update($actionData, $id);
         return redirect()->route("users.index")->with('res', [
             "method" => "success",

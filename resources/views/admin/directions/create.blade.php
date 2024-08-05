@@ -45,7 +45,7 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote">{{ __('table.requirement', locale: 'uz') }}</label>
+                                        <label for="summernote">{{ __('form.direction.requirement', locale: 'uz') }}</label>
                                         <textarea id="summernote" name="requirement[uz]"></textarea>
                                         @if($errors->has("requirement.uz"))
                                             <div class="text-danger">{{ $errors->first("requirement.uz") }}</div>
@@ -69,7 +69,7 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">{{ __('table.requirement', locale: 'ru') }}</label>
+                                        <label for="summernote2">{{ __('form.direction.requirement', locale: 'ru') }}</label>
                                         <div class="">
                                             <textarea id="summernote3" name="requirement[ru]"></textarea>
                                         </div>
@@ -95,7 +95,7 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">{{ __('table.requirement', locale: 'en') }}</label>
+                                        <label for="summernote2">{{ __('form.direction.requirement', locale: 'en') }}</label>
                                         <div class="">
                                             <textarea id="summernote2" name="requirement[en]"></textarea>
                                         </div>

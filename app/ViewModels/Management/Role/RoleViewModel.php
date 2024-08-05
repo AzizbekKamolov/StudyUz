@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Management\Role;
 
-use App\ViewModels\BaseViewModel;
+use Akbarali\ViewModel\BaseViewModel;
 use Carbon\Carbon;
 
 class RoleViewModel extends BaseViewModel

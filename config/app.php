@@ -161,6 +161,9 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
+        \Akbarali\ActionData\Providers\ActionDataServiceProvider::class,
+        \Akbarali\DataObject\DataObjectProvider::class,
+
 
         /*
          * Application Service Providers...

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DirectionModel extends Model
 {
@@ -25,4 +26,9 @@ class DirectionModel extends Model
         'requirement' => "array",
         'contract_currency' => "array",
     ];
+
+    public function university():BelongsTo
+    {
+        return $this->belongsTo(UniversityModel::class, 'university_id');
+    }
 }

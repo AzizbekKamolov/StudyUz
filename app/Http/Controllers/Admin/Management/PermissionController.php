@@ -29,6 +29,7 @@ class PermissionController extends Controller
     {
         $filters[] = PermissionFilter::getRequest($request);
         $collection = $this->service->paginate(page: (int)$request->get('page'),limit:(int)$request->get('limit', 10), filters: $filters);
+
         return (new PaginationViewModel($collection, PermissionViewModel::class))
             ->toView('admin.management.permissions.index');
     }
@@ -48,9 +49,8 @@ class PermissionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request):RedirectResponse
+    public function store(StorePermissionActionData $actionData):RedirectResponse
     {
-        $actionData = StorePermissionActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("permissions.index")->with('res', [
             "method" => "success",
@@ -76,9 +76,8 @@ class PermissionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id):RedirectResponse
+    public function update(UpdatePermissionActionData $actionData, int $id):RedirectResponse
     {
-        $actionData = UpdatePermissionActionData::fromRequest($request);
         $this->service->update($actionData, $id);
         return redirect()->route("permissions.index")->with('res', [
             "method" => "success",

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\ActionData\Country\CountryActionData;
@@ -47,9 +47,8 @@ class CountryController extends Controller
      * @return RedirectResponse
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CountryActionData $actionData): RedirectResponse
     {
-        $actionData = CountryActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("countries.index")->with('res', [
             "method" => "success",

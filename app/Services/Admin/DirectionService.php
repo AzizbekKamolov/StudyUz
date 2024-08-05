@@ -24,6 +24,7 @@ class DirectionService
     public function paginate(int $page = 1, int $limit = 10, ?iterable $filters = null): DataObjectCollection
     {
         $model = DirectionModel::applyEloquentFilters($filters)
+            ->with('university')
             ->orderBy('directions.id', 'desc');
 
         $totalCount = $model->count();

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace App\DataObjects\Management\User;
 
-use App\DataObjects\DataObjectBase;
-use Illuminate\Support\Carbon;
+
+use Akbarali\DataObject\DataObjectBase;
 
 class UserData extends DataObjectBase
 {

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\ActionData\Auth\LoginUserActionData;
@@ -19,9 +19,8 @@ class AuthController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request): RedirectResponse
+    public function login(LoginUserActionData $actionData): RedirectResponse
     {
-        $actionData = LoginUserActionData::fromRequest($request);
         $this->service->loginUser($actionData);
         return redirect()->route("admin.index")->with('res', [
             'method' => "success",

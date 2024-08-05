@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\ActionData\Auth;
 
-use App\ActionData\ActionDataBase;
+
+use Akbarali\ActionData\ActionDataBase;
 
 class LoginUserActionData extends ActionDataBase
 {

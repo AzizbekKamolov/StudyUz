@@ -90,7 +90,7 @@ class Phone
     }
 
     // make number like +998(99)-999-99-99
-    public function format(?bool $withCode = true, ?bool $withoutBrackets = false)
+    public function format(?bool $withCode = true, ?bool $withoutBrackets = false, string $middleMarks = ' ')
     {
         $pieces = str_split($this->phone);
 
@@ -105,12 +105,12 @@ class Phone
         }
 
         if ($withoutBrackets) {
-            $res .= implode("", array_slice($pieces, 3, 2)) . "-";
+            $res .= implode("", array_slice($pieces, 3, 2)) . $middleMarks;
         }else{
-            $res .= "(" . implode("", array_slice($pieces, 3, 2)) . ")-";
+            $res .= "(" . implode("", array_slice($pieces, 3, 2)) . ")" . $middleMarks;
         }
-        $res .= implode("", array_slice($pieces, 5, 3)) . "-";
-        $res .= implode("", array_slice($pieces, 8, 2)) . "-";
+        $res .= implode("", array_slice($pieces, 5, 3)) . $middleMarks;
+        $res .= implode("", array_slice($pieces, 8, 2)) . $middleMarks;
         $res .= implode("", array_slice($pieces, 10, 2));
 
         return $res;

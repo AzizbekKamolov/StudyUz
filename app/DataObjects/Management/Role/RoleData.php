@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\DataObjects\Management\Role;
 
-use App\DataObjects\DataObjectBase;
+use Akbarali\DataObject\DataObjectBase;
 use Illuminate\Support\Carbon;
 
 class RoleData extends DataObjectBase

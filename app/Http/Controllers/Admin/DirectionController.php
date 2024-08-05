@@ -31,9 +31,11 @@ class DirectionController extends Controller
     public function index(Request $request): View
     {
         $filters[] = DirectionFilter::getRequest($request);
+        $universities = $this->universityService->getAllUniversities();
+        $universities->transform(fn($data) => UniversityViewModel::fromDataObject($data));
         $collection = $this->service->paginate(page: (int)$request->get('page'), limit: (int)$request->get('page', 10), filters: $filters);
         return (new PaginationViewModel($collection, DirectionViewModel::class))
-            ->toView('admin.directions.index');
+            ->toView('admin.directions.index', compact('universities'));
     }
 
     /**
@@ -53,11 +55,10 @@ class DirectionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(DirectionActionData $actionData): RedirectResponse
     {
-        $actionData = DirectionActionData::fromRequest($request);
         $this->service->store($actionData);
-        return redirect()->route("direction.index")->with('res', [
+        return redirect()->route("directions.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -71,7 +72,7 @@ class DirectionController extends Controller
     public function edit(int $id): View
     {
         $data = $this->service->edit($id);
-        $viewModel = new DirectionViewModel($data);
+        $viewModel = DirectionViewModel::fromDataObject($data);
         $universities = $this->universityService->getAllUniversities();
         $universities->transform(fn($data) => UniversityViewModel::fromDataObject($data));
         return $viewModel->toView('admin.directions.edit', compact('universities'));
@@ -83,11 +84,10 @@ class DirectionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(DirectionActionData $actionData, int $id): RedirectResponse
     {
-        $actionData = DirectionActionData::fromRequest($request);
         $this->service->update($actionData, $id);
-        return redirect()->route("direction.index")->with('res', [
+        return redirect()->route("directions.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -101,7 +101,7 @@ class DirectionController extends Controller
     public function delete(int $id): RedirectResponse
     {
         $this->service->delete($id);
-        return redirect()->route("direction.index")->with('res', [
+        return redirect()->route("directions.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);

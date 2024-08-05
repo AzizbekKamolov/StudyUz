@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace App\ActionData\Management\User;
 
-use App\ActionData\ActionDataBase;
+
+use Akbarali\ActionData\ActionDataBase;
 
 class UpdateUserActionData extends ActionDataBase
 {

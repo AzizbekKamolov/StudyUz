@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace App\ActionData\Management\Role;
 
-use App\ActionData\ActionDataBase;
+
+use Akbarali\ActionData\ActionDataBase;
 
 class StoreRoleActionData extends ActionDataBase
 {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Country;
 
-use App\ViewModels\BaseViewModel;
+use Akbarali\ViewModel\BaseViewModel;
 use Illuminate\Support\Carbon;
 
 class CountryViewModel extends BaseViewModel

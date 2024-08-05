@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\DataObjects\Country;
 
-use App\DataObjects\DataObjectBase;
+use Akbarali\DataObject\DataObjectBase;
 use Illuminate\Support\Carbon;
 
 class CountryData extends DataObjectBase

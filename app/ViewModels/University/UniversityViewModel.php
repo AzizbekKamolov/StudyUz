@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\ViewModels\University;
 
-use App\ViewModels\BaseViewModel;
+
+use Akbarali\ViewModel\BaseViewModel;
 
 class UniversityViewModel extends BaseViewModel
 {

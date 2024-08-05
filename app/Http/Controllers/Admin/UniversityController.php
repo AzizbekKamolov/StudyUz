@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\ActionData\University\UniversityActionData;
@@ -61,9 +61,8 @@ class UniversityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request):RedirectResponse
+    public function store(UniversityActionData $actionData):RedirectResponse
     {
-        $actionData = UniversityActionData::fromRequest($request);
         $this->service->store($actionData);
         return redirect()->route("universities.index")->with('res', [
             "method" => "success",
@@ -97,9 +96,8 @@ class UniversityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id):RedirectResponse
+    public function update(UniversityActionData $actionData, int $id):RedirectResponse
     {
-        $actionData = UniversityActionData::fromRequest($request);
         $this->service->update($actionData, $id);
         return redirect()->route("universities.index")->with('res', [
             "method" => "success",

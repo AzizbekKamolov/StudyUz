@@ -2,7 +2,8 @@
 
 namespace App\DataObjects\University;
 
-use App\DataObjects\DataObjectBase;
+
+use Akbarali\DataObject\DataObjectBase;
 
 class UniversityData extends DataObjectBase
 {
