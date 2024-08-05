@@ -1,22 +1,21 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Management;
+namespace App\Http\Controllers\Admin;
 
 use Akbarali\ViewModel\PaginationViewModel;
-use App\ActionData\Management\Permission\StorePermissionActionData;
-use App\ActionData\Management\Permission\UpdatePermissionActionData;
-use App\Filters\Management\Permission\PermissionFilter;
+use App\ActionData\Attribute\AttributeActionData;
+use App\ActionData\Attribute\UpdateAttributeActionData;
+use App\Filters\Attribute\AttributeFilter;
 use App\Http\Controllers\Controller;
-use App\Services\Admin\Management\PermissionService;
-use App\ViewModels\Management\Permission\PermissionViewModel;
+use App\Services\Admin\AttributeService;
+use App\ViewModels\Attribute\AttributeViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class PermissionController extends Controller
+class AttributeController extends Controller
 {
-    public function __construct(protected PermissionService $service)
+    public function __construct(protected AttributeService $service)
     {
     }
 
@@ -27,11 +26,11 @@ class PermissionController extends Controller
 
     public function index(Request $request): View
     {
-        $filters[] = PermissionFilter::getRequest($request);
+        $filters[] = AttributeFilter::getRequest($request);
         $collection = $this->service->paginate(page: (int)$request->get('page'),limit:(int)$request->get('limit', 10), filters: $filters);
 
-        return (new PaginationViewModel($collection, PermissionViewModel::class))
-            ->toView('admin.management.permissions.index');
+        return (new PaginationViewModel($collection, AttributeViewModel::class))
+            ->toView('admin.attributes.index');
     }
 
     /**
@@ -40,8 +39,8 @@ class PermissionController extends Controller
 
     public function create(): View
     {
-        $viewModel = PermissionViewModel::createEmpty();
-        return $viewModel->toView('admin.management.permissions.create');
+        $viewModel = AttributeViewModel::createEmpty();
+        return $viewModel->toView('admin.attributes.create');
     }
 
     /**
@@ -49,10 +48,10 @@ class PermissionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(StorePermissionActionData $actionData):RedirectResponse
+    public function store(AttributeActionData $actionData):RedirectResponse
     {
         $this->service->store($actionData);
-        return redirect()->route("permissions.index")->with('res', [
+        return redirect()->route("attributes.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -66,8 +65,8 @@ class PermissionController extends Controller
     public function edit(int $id):View
     {
         $data = $this->service->edit($id);
-        $viewModel = new PermissionViewModel($data);
-        return $viewModel->toView('admin.management.permissions.edit');
+        $viewModel = new AttributeViewModel($data);
+        return $viewModel->toView('admin.attributes.edit');
     }
 
     /**
@@ -76,10 +75,10 @@ class PermissionController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(UpdatePermissionActionData $actionData, int $id):RedirectResponse
+    public function update(UpdateAttributeActionData $actionData, int $id):RedirectResponse
     {
         $this->service->update($actionData, $id);
-        return redirect()->route("permissions.index")->with('res', [
+        return redirect()->route("attributes.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);
@@ -93,7 +92,7 @@ class PermissionController extends Controller
     public function delete(int $id):RedirectResponse
     {
         $this->service->delete($id);
-        return redirect()->route("permissions.index")->with('res', [
+        return redirect()->route("attributes.index")->with('res', [
             "method" => "success",
             "msg" => trans('table.success_message'),
         ]);

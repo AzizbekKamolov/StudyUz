@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property array $name
+ * @property int $type
  * @property string $created_at
  */
-class CountryModel extends Model
+class AttributeModel extends Model
 {
     use HasFactory, EloquentFilterTrait;
-    protected $table = 'countries';
+    protected $table = 'attributes';
+
     protected $fillable = [
       'name',
+      'type',
       'created_at',
       'updated_at',
     ];

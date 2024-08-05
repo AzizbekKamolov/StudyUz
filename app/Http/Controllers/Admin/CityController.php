@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
+use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\City\CityActionData;
 use App\Filters\City\CityFilter;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,6 @@ use App\Services\Admin\CityService;
 use App\Services\Admin\CountryService;
 use App\ViewModels\City\CityViewModel;
 use App\ViewModels\Country\CountryViewModel;
-use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;

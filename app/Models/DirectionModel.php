@@ -6,7 +6,15 @@ use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+/**
+ * @property int $id
+ * @property array $name
+ * @property array $requirement
+ * @property int $university_id
+ * @property array $contract_currency
+ * @property int $contract_amount
+ * @property string $created_at
+ */
 class DirectionModel extends Model
 {
     use HasFactory, EloquentFilterTrait;

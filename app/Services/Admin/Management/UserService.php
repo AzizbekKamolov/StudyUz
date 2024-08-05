@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services\Admin\Management;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Management\User\StoreUserActionData;
 use App\ActionData\Management\User\UpdateUserActionData;
-use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Management\User\UserData;
 use App\Models\User;
 use App\Utils\Phone;

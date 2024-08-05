@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services\Admin\Management;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Management\Role\StoreRoleActionData;
 use App\ActionData\Management\Role\UpdateRoleActionData;
-use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Management\Role\RoleData;
 use App\Models\Management\Role;
 use Illuminate\Database\Eloquent\Collection;

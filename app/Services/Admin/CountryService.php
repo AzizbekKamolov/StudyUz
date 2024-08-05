@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services\Admin;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Country\CountryActionData;
 use App\DataObjects\Country\CountryData;
-use App\DataObjects\DataObjectCollection;
 use App\Models\CountryModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

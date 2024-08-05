@@ -35,6 +35,13 @@ return [
         "add_university" => "Universitet qo'shish",
         "edit_university" => "Universitetni tahrirlash",
     ],
+    "attribute" => [
+        "attribute" => "Xususiyat",
+        "type" => "Xususiyat turi (Universitet uchun | Universitet yo'nalishi uchun)",
+        "attributes" => "Xususiyatlar",
+        "add_attribute" => "Xususiyat qo'shish",
+        "edit_attribute" => "Xususiyatni tahrirlash",
+    ],
     "direction" => [
         "direction" => "Universitet yo'nalishi",
         "contract_amount" => "Kontrakt narxi",

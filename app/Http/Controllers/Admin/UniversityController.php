@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
+use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\University\UniversityActionData;
 use App\Filters\City\CityFilter;
 use App\Filters\University\UniversityFilter;
@@ -12,7 +13,6 @@ use App\Services\Admin\UniversityService;
 use App\ViewModels\City\CityViewModel;
 use App\ViewModels\Country\CountryViewModel;
 use App\ViewModels\University\UniversityViewModel;
-use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

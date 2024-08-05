@@ -15,7 +15,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param LoginUserActionData $actionData
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */

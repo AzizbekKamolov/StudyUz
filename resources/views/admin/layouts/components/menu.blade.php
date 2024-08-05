@@ -13,6 +13,10 @@
                 <a href="{{ route('universities.index') }}"><i class="fa fa-university"></i>
                     <span>Universitetlar</span></a>
             </li>
+            <li class="@if(request()->routeIs('attributes.*'))active @endif">
+                <a href="{{ route('attributes.index') }}"><i class="fa fa-university"></i>
+                    <span>Attributlar</span></a>
+            </li>
             <li class="@if(request()->routeIs('directions.*'))active @endif">
                 <a href="{{ route('directions.index') }}"><i class="fa fa-bar-chart"></i>
                     <span>Universitet Yo'nalishlari</span></a>

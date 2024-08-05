@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Management;
 
+use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Management\Role\StoreRoleActionData;
 use App\ActionData\Management\Role\UpdateRoleActionData;
 use App\Filters\Management\Role\RoleFilter;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\Management\PermissionService;
 use App\Services\Admin\Management\RoleService;
 use App\ViewModels\Management\Role\RoleViewModel;
-use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

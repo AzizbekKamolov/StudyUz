@@ -2,13 +2,13 @@
 declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
+use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Direction\DirectionActionData;
 use App\Filters\Direction\DirectionFilter;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\DirectionService;
 use App\Services\Admin\UniversityService;
 use App\ViewModels\Direction\DirectionViewModel;
-use App\ViewModels\PaginationViewModel;
 use App\ViewModels\University\UniversityViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

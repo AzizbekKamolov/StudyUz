@@ -6,16 +6,23 @@ namespace App\Services\Admin;
 
 use App\ActionData\Auth\LoginUserActionData;
 use App\Models\User;
+use App\Utils\Phone;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
-
+    /**
+     * @param LoginUserActionData $actionData
+     * @return void
+     * @throws ValidationException
+     */
     public function loginUser(LoginUserActionData $actionData): void
     {
+        $phone = new Phone($actionData->username);
         $user = User::query()
-            ->where('phone', $actionData->username)
+            ->where('email', $actionData->username)
+            ->orWhere('phone', $phone->getFull())
             ->first();
         if (is_null($user)) {
             throw ValidationException::withMessages([

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services\Admin;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\City\CityActionData;
 use App\DataObjects\City\CityData;
-use App\DataObjects\DataObjectCollection;
 use App\Models\CityModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DirectionController;
 use App\Http\Controllers\Admin\Management\PermissionController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Management\RoleController;
 use App\Http\Controllers\Admin\Management\UserController;
 use App\Http\Controllers\Admin\UniversityController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
             Route::put('{id}/update', 'update')->name('update')->can('countries.update');
             Route::get('{id}/delete', 'delete')->name('delete')->can('countries.delete');
         });
+
         Route::controller(CityController::class)->name('cities.')->prefix('cities')->group(function () {
             Route::get('/', 'index')->name('index')->can('cities.index');
             Route::get('/get-all-by-country-id', 'getCitiesByCountryId')->name('getCitiesByCountryId')->can('cities.store');
@@ -37,6 +39,7 @@ Route::middleware('auth')->group(function () {
             Route::put('{id}/update', 'update')->name('update')->can('cities.update');
             Route::get('{id}/delete', 'delete')->name('delete')->can('cities.delete');
         });
+
         Route::controller(UniversityController::class)->name('universities.')->prefix('universities')->group(function () {
             Route::get('/', 'index')->name('index')->can('universities.index');
             Route::get('/create', 'create')->name('create')->can('universities.store');
@@ -45,6 +48,16 @@ Route::middleware('auth')->group(function () {
             Route::put('{id}/update', 'update')->name('update')->can('universities.update');
             Route::get('{id}/delete', 'delete')->name('delete')->can('universities.delete');
         });
+
+        Route::controller(AttributeController::class)->name('attributes.')->prefix('attributes')->group(function () {
+            Route::get('/', 'index')->name('index')->can('attributes.index');
+            Route::get('/create', 'create')->name('create')->can('attributes.store');
+            Route::post('/store', 'store')->name('store')->can('attributes.store');
+            Route::get('{id}/edit', 'edit')->name('edit')->can('attributes.update');
+            Route::put('{id}/update', 'update')->name('update')->can('attributes.update');
+            Route::get('{id}/delete', 'delete')->name('delete')->can('attributes.delete');
+        });
+
         Route::controller(DirectionController::class)->name('directions.')->prefix('directions')->group(function () {
             Route::get('/', 'index')->name('index')->can('directions.index');
             Route::get('/create', 'create')->name('create')->can('directions.store');

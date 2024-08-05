@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 namespace App\Services\Admin\Management;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Management\Permission\StorePermissionActionData;
 use App\ActionData\Management\Permission\UpdatePermissionActionData;
-use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Management\Permission\PermissionData;
 use App\Models\Management\Permission;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 class PermissionService
 {

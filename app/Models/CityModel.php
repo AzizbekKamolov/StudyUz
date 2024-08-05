@@ -6,7 +6,12 @@ use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+/**
+ * @property int $id
+ * @property int $country_id
+ * @property array $name
+ * @property string $created_at
+ */
 class CityModel extends Model
 {
     use HasFactory, EloquentFilterTrait;

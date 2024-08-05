@@ -9,7 +9,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-
+/**
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $middle_name
+ * @property string $phone
+ * @property string $email
+ * @property string $password
+ * @property string $created_at
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles, EloquentFilterTrait;

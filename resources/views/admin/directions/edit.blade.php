@@ -8,7 +8,7 @@
             <div class="card mb-4 shadow-1">
                 <div class="card-header">
                     <h4 class="card-header-title">
-                        {{ __('form.user.edit_user') }}
+                        {{ __('form.direction.edit_direction') }}
                     </h4>
                 </div>
                 <div class="card-body collapse show" id="collapse8">

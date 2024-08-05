@@ -6,7 +6,17 @@ use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+/**
+ * @property int $id
+ * @property string $logo
+ * @property array $name
+ * @property int $country_id
+ * @property int $city_id
+ * @property string $description_uz
+ * @property ?string $description_ru
+ * @property ?string $description_en
+ * @property string $created_at
+ */
 class UniversityModel extends Model
 {
     use HasFactory, EloquentFilterTrait;

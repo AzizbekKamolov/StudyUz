@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Services\Admin;
 
+use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Direction\DirectionActionData;
-use App\DataObjects\DataObjectCollection;
 use App\DataObjects\Direction\DirectionData;
 use App\Models\DirectionModel;
 use Exception;

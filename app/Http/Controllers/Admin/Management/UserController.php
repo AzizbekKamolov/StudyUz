@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Management;
 
+use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\Management\User\StoreUserActionData;
 use App\ActionData\Management\User\UpdateUserActionData;
 use App\Filters\Management\User\UserFilter;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\Management\RoleService;
 use App\Services\Admin\Management\UserService;
 use App\ViewModels\Management\User\UserViewModel;
-use App\ViewModels\PaginationViewModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
