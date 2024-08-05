@@ -60,6 +60,7 @@
                                 </td>
                             </form>
                         </tr>
+                        
                         <tr>
                             <th>#</th>
                             <th>{{ __('table.name') }}</th>
