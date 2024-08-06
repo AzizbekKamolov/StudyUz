@@ -62,7 +62,7 @@
                                         @endif
                                     </div>
                                     <div class="mb-3">
-                                        <label for="summernote2">{{ __('table.description', locale: 'ru') }}</label>
+                                        <label for="summernote3">{{ __('table.description', locale: 'ru') }}</label>
                                         <div class="">
                                             <textarea id="summernote3" name="description_ru"></textarea>
                                         </div>
@@ -105,7 +105,8 @@
                                 <label for="country_id">{{ __('form.country.country') }}</label>
                                 <select class="form-control select2 select2-hidden-accessible" tabindex="-1"
                                         aria-hidden="true" id="country_id" name="country_id">
-                                    <option value="" selected disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
+                                    <option value="" selected
+                                            disabled>{{ __('form.country.country') }} {{ __('table.choose') }}</option>
                                     @foreach($countries as $country)
                                         <option
                                             value="{{ $country->id }}">{{ $country->nameTr ?? $country->name_uz }}</option>
@@ -124,7 +125,25 @@
                                     <div class="text-danger">{{ $errors->first('city_id') }}</div>
                                 @endif
                             </div>
+                            <div class="col-md-12" id="special_titles">
+                                <label for="validationTooltip03">File</label><span class="btn btn-outline-success ml-3 mb-2" id="special_titles_button"><i
+                                        class="fa fa-plus-circle"></i></span>
+                                <div class="form-row ">
+                                    <div class="col-md-8 mb-3 ">
+                                        <input type="file" class="form-control" id="validationTooltip03" name="files[][file]">
 
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="files[][lang]" class="form-control">
+                                            <option value="ru">ru</option>
+                                            <option value="uz">uz</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="btn btn-outline-danger special_titles_button_remove">-</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="text-center mt-4">
                             <button class="btn btn-success col-md-4" type="submit">{{ __('table.save') }}</button>
@@ -136,8 +155,7 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
-    <script>
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>    <script>
         $('#summernote').summernote({
             // placeholder: 'Information university',
             tabsize: 2,
@@ -154,32 +172,60 @@
             height: 150
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Event handler for the button click
-            $("#country_id").change(function(e) {
+            $("#country_id").change(function (e) {
                 $("#city_id").html('');
                 // Make an AJAX request
                 $.ajax({
                     url: '{{ route('cities.getCitiesByCountryId') }}?country_id=' + e.target.value, // Sample API endpoint
                     method: 'GET',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         // Update the content on success
                         let items = `<option value="" selected
                                                 disabled>{{ __('form.city.city') }} {{ __('table.choose') }}</option>`
                         data.data.forEach(function (item, value) {
-                            console.log(item,value)
+                            console.log(item, value)
                             items += `<option value="${item.id}">${item.nameTr ?? item.name_uz}</option>`
                         })
                         $("#city_id").html(items);
                     },
-                    error: function(error) {
+                    error: function (error) {
                         // Handle errors
                         console.error('Error:', error);
                     }
                 });
             });
         });
+        $('#special_titles_button').on('click', function (e) {
+            e.preventDefault()
+            console.log(1)
+            $('#special_titles').append(`<div class="form-row ">
+                                    <div class="col-md-8 mb-3 ">
+                                        <input type="file" class="form-control" id="validationTooltip03" name="files[][file]">
+
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="files[][lang]" class="form-control">
+
+                                        <option value="ru">ru</option>
+                                        <option value="uz">uz</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="btn btn-outline-danger special_titles_button_remove">-</span>
+                                    </div>
+                                </div>
+    `)
+        })
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('special_titles_button_remove')) {
+                e.target.
+                parentElement.
+                parentElement.remove();
+            }
+        })
     </script>
 @endsection
 

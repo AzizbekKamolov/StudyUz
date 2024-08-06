@@ -61,8 +61,9 @@ class UniversityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(UniversityActionData $actionData):RedirectResponse
+    public function store(Request $actionData):RedirectResponse
     {
+        dd($actionData->all());
         $this->service->store($actionData);
         return redirect()->route("universities.index")->with('res', [
             "method" => "success",
