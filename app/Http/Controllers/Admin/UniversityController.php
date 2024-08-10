@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Akbarali\ViewModel\PaginationViewModel;
 use App\ActionData\University\UniversityActionData;
+use App\Enums\AttributeType;
 use App\Filters\City\CityFilter;
 use App\Filters\University\UniversityFilter;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\AttributeService;
 use App\Services\Admin\CityService;
 use App\Services\Admin\CountryService;
 use App\Services\Admin\UniversityService;
+use App\ViewModels\Attribute\AttributeViewModel;
 use App\ViewModels\City\CityViewModel;
 use App\ViewModels\Country\CountryViewModel;
 use App\ViewModels\University\UniversityViewModel;
@@ -23,6 +26,7 @@ class UniversityController extends Controller
     public function __construct(
         protected UniversityService $service,
         protected CountryService $countryService,
+        protected AttributeService $attributeService,
     )
     {
     }
@@ -51,9 +55,11 @@ class UniversityController extends Controller
     {
         $countries = $this->countryService->getAll();
         $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
+        $attributes = $this->attributeService->getAttributes(AttributeType::UNIVERSITY_TYPE);
+        $attributes->transform(fn($attribute) => AttributeViewModel::fromDataObject($attribute));
 
         $viewModel = UniversityViewModel::createEmpty();
-        return $viewModel->toView('admin.universities.create', compact('countries'));
+        return $viewModel->toView('admin.universities.create', compact('countries', 'attributes'));
     }
 
     /**
@@ -61,9 +67,8 @@ class UniversityController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $actionData):RedirectResponse
+    public function store(UniversityActionData $actionData):RedirectResponse
     {
-        dd($actionData->all());
         $this->service->store($actionData);
         return redirect()->route("universities.index")->with('res', [
             "method" => "success",
@@ -80,7 +85,7 @@ class UniversityController extends Controller
     {
 
         $data = $this->service->edit($id);
-        $viewModel = new UniversityViewModel($data);
+        $viewModel = UniversityViewModel::fromDataObject($data);
 
         $countries = $this->countryService->getAll();
         $countries->transform(fn($country) => CountryViewModel::fromDataObject($country));
@@ -88,7 +93,11 @@ class UniversityController extends Controller
         $filters[] = CityFilter::getRequest($request);
         $cities = (new CityService())->getCitiesByCountryId($filters);
         $cities->transform(fn($city) => CityViewModel::fromDataObject($city));
-        return $viewModel->toView('admin.universities.edit', compact('countries', 'cities'));
+
+        $attributes = $this->attributeService->getAttributes(AttributeType::UNIVERSITY_TYPE);
+        $attributes->transform(fn($attribute) => AttributeViewModel::fromDataObject($attribute));
+
+        return $viewModel->toView('admin.universities.edit', compact('countries', 'cities', 'attributes'));
     }
 
     /**

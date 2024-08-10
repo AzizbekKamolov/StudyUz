@@ -6,6 +6,9 @@ use App\Filters\Trait\EloquentFilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Hash;
+
 /**
  * @property int $id
  * @property string $logo
@@ -43,5 +46,9 @@ class UniversityModel extends Model
     public function city():BelongsTo
     {
         return $this->belongsTo(CityModel::class, 'city_id');
+    }
+    public function university_attributes():HasMany
+    {
+        return $this->hasMany(UniversityAttributeModel::class, 'university_id');
     }
 }

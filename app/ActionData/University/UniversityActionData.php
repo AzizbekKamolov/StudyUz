@@ -14,6 +14,7 @@ class UniversityActionData extends ActionDataBase
     public ?string $description_uz;
     public ?string $description_ru;
     public ?string $description_en;
+    public ?array $attributes;
     protected array $rules = [
         "name" => "required|array",
         "name.uz" => "required|string",
@@ -21,5 +22,6 @@ class UniversityActionData extends ActionDataBase
         "logo" => "nullable|mimes:jpg,jpeg,png,gif|max:10000",
         "country_id" => "required|exists:countries,id",
         "city_id" => "nullable|exists:cities,id",
+        "attributes" => "nullable|array",
     ];
 }

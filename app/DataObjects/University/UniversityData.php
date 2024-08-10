@@ -17,4 +17,5 @@ class UniversityData extends DataObjectBase
     public string $description_uz;
     public ?string $description_ru;
     public ?string $description_en;
+    public array|UniversityAttributeData $university_attributes = [];
 }

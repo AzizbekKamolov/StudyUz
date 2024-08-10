@@ -126,18 +126,23 @@
                                 @endif
                             </div>
                             <div class="col-md-12" id="special_titles">
-                                <label for="validationTooltip03">File</label><span class="btn btn-outline-success ml-3 mb-2" id="special_titles_button"><i
+                                <label for="validationTooltip03">File</label><span
+                                    class="btn btn-outline-success ml-3 mb-2" id="special_titles_button"><i
                                         class="fa fa-plus-circle"></i></span>
                                 <div class="form-row ">
-                                    <div class="col-md-8 mb-3 ">
-                                        <input type="file" class="form-control" id="validationTooltip03" name="files[][file]">
 
-                                    </div>
                                     <div class="col-md-3 mb-3">
-                                        <select name="files[][lang]" class="form-control">
-                                            <option value="ru">ru</option>
-                                            <option value="uz">uz</option>
+                                        <select name="attributes[0][attribute_id]" class="form-control">
+                                            <option value="" selected disabled>{{ __('form.attribute.attribute') }} {{ __('table.choose') }}</option>
+                                            @foreach($attributes as $attribute)
+                                                <option value="{{ $attribute->id }}">{{ $attribute->nameTr }}</option>
+                                            @endforeach
                                         </select>
+                                    </div>
+                                    <div class="col-md-8 mb-3 ">
+                                        <input type="text" class="form-control" id="validationTooltip03"
+                                               name="attributes[0][value]">
+
                                     </div>
                                     <div class="col-md-1">
                                         <span class="btn btn-outline-danger special_titles_button_remove">-</span>
@@ -155,7 +160,8 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>    <script>
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script>
         $('#summernote').summernote({
             // placeholder: 'Information university',
             tabsize: 2,
@@ -198,32 +204,34 @@
                 });
             });
         });
+        let counter = 0
         $('#special_titles_button').on('click', function (e) {
             e.preventDefault()
-            console.log(1)
+            counter++
             $('#special_titles').append(`<div class="form-row ">
-                                    <div class="col-md-8 mb-3 ">
-                                        <input type="file" class="form-control" id="validationTooltip03" name="files[][file]">
 
-                                    </div>
                                     <div class="col-md-3 mb-3">
-                                        <select name="files[][lang]" class="form-control">
+                                        <select name="attributes[${counter}][attribute_id]" class="form-control">
+                                                <option value="" selected disabled>{{ __('form.attribute.attribute') }} {{ __('table.choose') }}</option>
+                                            @foreach($attributes as $attribute)
+            <option value="{{ $attribute->id }}">{{ $attribute->nameTr }}</option>
+                                            @endforeach
+            </select>
+        </div>
+        <div class="col-md-8 mb-3 ">
+            <input type="text" class="form-control"
+                    name="attributes[${counter}][value]">
 
-                                        <option value="ru">ru</option>
-                                        <option value="uz">uz</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <span class="btn btn-outline-danger special_titles_button_remove">-</span>
-                                    </div>
-                                </div>
-    `)
+        </div>
+        <div class="col-md-1">
+            <span class="btn btn-outline-danger special_titles_button_remove">-</span>
+        </div>
+     </div>
+`)
         })
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('special_titles_button_remove')) {
-                e.target.
-                parentElement.
-                parentElement.remove();
+                e.target.parentElement.parentElement.remove();
             }
         })
     </script>

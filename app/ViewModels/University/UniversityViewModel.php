@@ -5,6 +5,7 @@ namespace App\ViewModels\University;
 
 
 use Akbarali\ViewModel\BaseViewModel;
+use App\DataObjects\University\UniversityAttributeData;
 
 class UniversityViewModel extends BaseViewModel
 {
@@ -22,6 +23,7 @@ class UniversityViewModel extends BaseViewModel
     public string $description_uz;
     public ?string $description_ru;
     public ?string $description_en;
+    public array|UniversityAttributeData $university_attributes = [];
 
     protected function populate(): void
     {

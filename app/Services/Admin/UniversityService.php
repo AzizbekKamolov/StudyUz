@@ -7,6 +7,7 @@ namespace App\Services\Admin;
 use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\University\UniversityActionData;
 use App\DataObjects\University\UniversityData;
+use App\Models\UniversityAttributeModel;
 use App\Models\UniversityModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
@@ -56,12 +57,26 @@ class UniversityService
         $actionData->validateException();
 
         $data = $actionData->all();
+        unset($data['attributes']);
         if ($actionData->logo) {
             $imageName = Str::uuid(10) . '.' . $actionData->logo->getClientOriginalExtension();
             $actionData->logo->move(public_path(self::IMAGE_PATH), $imageName);
             $data['logo'] = $imageName;
         }
         $university = UniversityModel::query()->create($data);
+        $attributes = [];
+        foreach ($actionData->attributes as $attribute) {
+            if (!isset($attribute['attribute_id']) || !$attribute['value']) {
+                continue;
+            }
+            $item['attribute_id'] = $attribute['attribute_id'];
+            $item['university_id'] = $university->id;
+            $item['value'] = $attribute['value'];
+            $attributes[] = $item;
+            $item = [];
+        }
+        UniversityAttributeModel::query()->insert($attributes);
+
         return UniversityData::fromModel($university);
     }
 
@@ -71,7 +86,7 @@ class UniversityService
      */
     public function getOne(int $id): UniversityModel|Builder|Model
     {
-        return UniversityModel::query()->findOrFail($id);
+        return UniversityModel::query()->with('university_attributes')->findOrFail($id);
     }
 
     /**
@@ -93,6 +108,16 @@ class UniversityService
      */
     public function update(UniversityActionData $actionData, int $id): UniversityData
     {
+        $attributes = array_column($actionData->attributes, 'id');
+        foreach ($actionData->attributes as $attribute) {
+            if (!isset($attribute['id']) || !$attribute['value']) {
+                continue;
+            }
+            $university_attribute = UniversityAttributeModel::query()
+                ->where('university_id', '=', $id)
+                ->first();
+        }
+
         $data = $actionData->all();
         $university = $this->getOne($id);
         unset($data['logo']);
@@ -127,7 +152,7 @@ class UniversityService
     /**
      * @return UniversityModel|Collection
      */
-    public function getAllUniversities():UniversityModel|Collection
+    public function getAllUniversities(): UniversityModel|Collection
     {
         $universities = UniversityModel::query()
             ->get();

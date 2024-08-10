@@ -7,7 +7,9 @@ use Akbarali\DataObject\DataObjectCollection;
 use App\ActionData\Attribute\AttributeActionData;
 use App\ActionData\Attribute\UpdateAttributeActionData;
 use App\DataObjects\Attribute\AttributeData;
+use App\Enums\AttributeType;
 use App\Models\AttributeModel;
+use Illuminate\Support\Collection;
 
 class AttributeService
 {
@@ -84,5 +86,18 @@ class AttributeService
     {
         $attribute = $this->getOne($id);
         $attribute->delete();
+    }
+
+    /**
+     * @param $type
+     * @return AttributeModel|Collection
+     */
+
+    public function getAttributes(AttributeType $type):AttributeModel|Collection
+    {
+        $attributes = AttributeModel::query()
+            ->where('type', '=', $type->value)
+            ->get();
+        return $attributes->transform(fn(AttributeModel $attributeModel) => AttributeData::fromModel($attributeModel));
     }
 }
